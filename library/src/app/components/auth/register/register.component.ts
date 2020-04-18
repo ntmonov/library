@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -7,7 +8,7 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
 
@@ -20,6 +21,9 @@ export class RegisterComponent implements OnInit {
   });
 
   register() {
-    console.log(this.registerForm.value);
+    delete this.registerForm['confirmPass'];
+    this.authService
+      .register(this.registerForm.value)
+      .subscribe((user) => console.log(user));
   }
 }
