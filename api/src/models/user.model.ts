@@ -15,6 +15,9 @@ export class RegistrationDTO extends LoginDTO {
   @MinLength(4)
   @MaxLength(20)
   username: string;
+
+  @IsString()
+  address: string;
 }
 
 export interface AuthPayload {

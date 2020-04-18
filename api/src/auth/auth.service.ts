@@ -25,7 +25,8 @@ export class AuthService {
       const token = this.jwtService.sign(payload);
       return { user: { ...user.toJSON(), token } };
     } catch (err) {
-      if (err.code === '23505') {
+      console.log(err.code);
+      if (err.code === 'ER_DUP_ENTRY') {
         throw new ConflictException('Username allready taken');
       }
       throw new InternalServerErrorException();
