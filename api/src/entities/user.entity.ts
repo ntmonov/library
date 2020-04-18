@@ -14,7 +14,7 @@ export class UserEntity extends AbstractEntity {
   username: string;
 
   @Column({ default: '' })
-  bio: string;
+  address: string;
 
   @Column({ default: null, nullable: true })
   image: string | null;
