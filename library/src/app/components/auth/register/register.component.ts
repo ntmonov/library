@@ -19,7 +19,9 @@ export class RegisterComponent implements OnInit {
       Validators.minLength(4),
       Validators.maxLength(20),
     ]),
-    email: new FormControl(''),
+    email: new FormControl('', [
+      Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+    ]),
     address: new FormControl(''),
     password: new FormControl('', [
       Validators.required,
@@ -40,12 +42,15 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get('confirmPass');
   }
 
+  get email() {
+    return this.registerForm.get('email');
+  }
+
   register() {
     delete this.registerForm['confirmPass'];
     this.authService.register(this.registerForm.value).subscribe(
-      (user) => console.log(user),
+      (user) => console.log(user.user),
       (err) => {
-        console.log(err);
         this.errorMessage = err.error.message;
       }
     );

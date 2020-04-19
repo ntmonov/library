@@ -1,9 +1,9 @@
-export class LoginUser {
-  username: string;
-  password: string;
-}
-
-export class RegisterUser extends LoginUser {
-  email: string;
-  address: string;
+export class User {
+  user: {
+    email: string;
+    username: string;
+    address: string;
+    id: number;
+    token: string;
+  };
 }

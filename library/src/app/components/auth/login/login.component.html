@@ -1,13 +1,21 @@
 <div class="container text-center">
-  <form>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="row">
       <div class="col-sm-4 offset-sm-4 form-group">
-        <label>Username</label>
+        <label>Email</label>
         <input
-          type="text"
-          placeholder="Enter username here.."
+          type="email"
+          placeholder="Enter email here.."
           class="form-control"
+          formControlName="email"
+          email="true"
         />
+        <div
+          *ngIf="email.invalid && (email.dirty || email.touched)"
+          class="alert alert-danger"
+        >
+          Wrong format of email
+        </div>
       </div>
     </div>
     <div class="row">
@@ -17,9 +25,27 @@
           type="password"
           placeholder="Enter password Here.."
           class="form-control"
+          formControlName="password"
         />
+        <div
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="password.errors.required">
+            Password is required.
+          </div>
+          <div *ngIf="password.errors.minlength">
+            Password must be at least 4 characters long.
+          </div>
+        </div>
       </div>
     </div>
-    <button type="button" class="btn btn-primary">Login</button>
+    <button
+      type="submit"
+      [disabled]="loginForm.invalid"
+      class="btn btn-primary"
+    >
+      Login
+    </button>
   </form>
 </div>

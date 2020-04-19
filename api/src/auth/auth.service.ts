@@ -29,7 +29,7 @@ export class AuthService {
       if (err.code === 'ER_DUP_ENTRY') {
         throw new ConflictException('Username allready taken');
       }
-      throw new InternalServerErrorException();
+      throw new InternalServerErrorException('Server error');
     }
   }
 
