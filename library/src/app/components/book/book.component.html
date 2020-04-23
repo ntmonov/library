@@ -1,2 +1,20 @@
-<p>book works!</p>
-{{ books | json }}
+<div *ngFor="let book of books">
+  <div class="card text-center bg-light container mb-1 w-50">
+    <div>
+      <img
+        class="card-img-top w-25"
+        src="{{ book.imageUrl }}"
+        alt="Card image cap"
+      />
+    </div>
+
+    <div class="card-body">
+      <h5 class="card-title">{{ book.title }}</h5>
+      <p class="card-text">
+        Some quick example text to build on the card title and make up the bdivk
+        of the card's content.
+      </p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+</div>
