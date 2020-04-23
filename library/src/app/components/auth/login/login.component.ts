@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  errorMessage: string = '';
+
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
@@ -31,8 +33,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService
-      .login(this.loginForm.value)
-      .subscribe((user) => console.log(user.user));
+    this.authService.login(this.loginForm.value).subscribe(
+      (user) => console.log(user.user),
+      (err) => {
+        this.errorMessage = err.error.message;
+      }
+    );
   }
 }
