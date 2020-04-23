@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
   register() {
     delete this.registerForm['confirmPass'];
     this.authService.register(this.registerForm.value).subscribe(
-      (user) => console.log(user.user),
+      (user) => this.authService.saveSession(user),
       (err) => {
         this.errorMessage = err.error.message;
       }

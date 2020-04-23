@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.login(this.loginForm.value).subscribe(
-      (user) => console.log(user.user),
+      (user) => this.authService.saveSession(user),
       (err) => {
         this.errorMessage = err.error.message;
       }

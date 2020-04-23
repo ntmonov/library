@@ -9,6 +9,15 @@ import { User } from '../models/User';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
+  saveSession(user: User) {
+    sessionStorage.setItem('username', user.user.username);
+    sessionStorage.setItem('token', user.user.token);
+  }
+
+  isAuthenticated() {
+    return sessionStorage.getItem('token') !== null;
+  }
+
   register(user: User): Observable<User> {
     return this.http.post<User>('http://localhost:3000/api/users', user);
   }
