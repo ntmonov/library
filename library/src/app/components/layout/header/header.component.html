@@ -2,21 +2,15 @@
   <a class="navbar-brand" routerLink="">Library</a>
   <a
     class="btn btn-primary mr-1"
-    *ngIf="!authService.isAuthenticated()"
+    *ngIf="!checkIfLogged()"
     routerLink="/register"
     >Register</a
   >
-  <a
-    class="btn btn-primary mr-1"
-    *ngIf="!authService.isAuthenticated()"
-    routerLink="/login"
+  <a class="btn btn-primary mr-1" *ngIf="!checkIfLogged()" routerLink="/login"
     >Login</a
   >
-  <a
-    class="btn btn-primary mr-1"
-    *ngIf="authService.isAuthenticated()"
-    (click)="logout()"
-    >Logout</a
+  <a class="btn btn-primary mr-1" *ngIf="checkIfLogged()" (click)="logout()"
+    >Logout {{ username }}</a
   >
   <a class="btn btn-primary" routerLink="/books">Books</a>
 </nav>
