@@ -14,4 +14,13 @@ export class BookComponent implements OnInit {
   ngOnInit(): void {
     this.bookService.getAllBooks().subscribe((data) => (this.books = data));
   }
+
+  deleteBook(bookId: number) {
+    this.bookService.deleteBook(bookId).subscribe(
+      (data) => {
+        this.books = this.books.filter((b) => b.id !== bookId);
+      },
+      (err) => console.log(err)
+    );
+  }
 }

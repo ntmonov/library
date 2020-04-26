@@ -23,4 +23,14 @@ export class BookService {
       headers,
     });
   }
+
+  deleteBook(bookId: number) {
+    const headers = new HttpHeaders({
+      Authorization: 'Token ' + sessionStorage.getItem('token'),
+      'Content-Type': 'application/json',
+    });
+    return this.http.delete(`http://localhost:3000/api/books/${bookId}`, {
+      headers,
+    });
+  }
 }

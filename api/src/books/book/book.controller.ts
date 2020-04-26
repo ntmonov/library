@@ -5,6 +5,8 @@ import {
   Body,
   ValidationPipe,
   UseGuards,
+  Delete,
+  Param,
 } from '@nestjs/common';
 import { BookService } from './book.service';
 import { BookDTO } from 'src/models/book.model';
@@ -25,5 +27,11 @@ export class BookController {
   @UseGuards(AuthGuard())
   addBook(@Body(ValidationPipe) book: BookDTO) {
     return this.bookService.addBook(book);
+  }
+
+  @Delete(':bookId')
+  @UseGuards(AuthGuard())
+  deleteBook(@Param('bookId') bookId: number) {
+    this.bookService.deleteBook(bookId);
   }
 }

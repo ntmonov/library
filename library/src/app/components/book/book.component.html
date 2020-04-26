@@ -14,7 +14,10 @@
         Some quick example text to build on the card title and make up the bdivk
         of the card's content.
       </p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+      <p>Created by {{ book.creator }}</p>
+      <button (click)="deleteBook(book.id)" class="btn btn-danger">
+        Delete
+      </button>
     </div>
   </div>
 </div>

@@ -19,4 +19,8 @@ export class BookService {
     const b = await this.bookRepo.insert(book);
     return b;
   }
+
+  async deleteBook(bookId: number) {
+    await this.bookRepo.delete(bookId);
+  }
 }
