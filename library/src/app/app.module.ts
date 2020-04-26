@@ -9,10 +9,17 @@ import { FooterComponent } from './components/layout/footer/footer.component';
 import { MainComponent } from './components/main/main/main.component';
 import { AuthModule } from './components/auth/auth.module';
 import { BookComponent } from './components/book/book.component';
+import { BookModule } from './components/book/book.module';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent, MainComponent, BookComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, AuthModule],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, MainComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    AuthModule,
+    BookModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

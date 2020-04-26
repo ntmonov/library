@@ -1,0 +1,111 @@
+<div class="container text-center">
+  <form [formGroup]="addBookForm" (ngSubmit)="addBook()">
+    <div class="row">
+      <div class="col-sm-4 offset-sm-4 form-group">
+        <label>Author</label>
+        <input
+          type="text"
+          placeholder="Enter author here.."
+          class="form-control"
+          formControlName="author"
+        />
+        <div
+          *ngIf="author.invalid && (author.dirty || author.touched)"
+          class="alert alert-danger"
+        >
+          Author is required
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 offset-sm-4 form-group">
+        <label>Title</label>
+        <input
+          type="text"
+          placeholder="Enter title Here.."
+          class="form-control"
+          formControlName="title"
+        />
+        <div
+          *ngIf="title.invalid && (title.dirty || title.touched)"
+          class="alert alert-danger"
+        >
+          Title is required
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 offset-sm-4 form-group">
+        <label>Description</label>
+        <textarea
+          type="text"
+          placeholder="Enter description Here.."
+          class="form-control"
+          formControlName="description"
+        ></textarea>
+        <!-- <div
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="password.errors.required">
+            Password is required.
+          </div>
+          <div *ngIf="password.errors.minlength">
+            Password must be at least 4 characters long.
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 offset-sm-4 form-group">
+        <label>Image URL</label>
+        <input
+          type="text"
+          placeholder="Enter imageUrl Here.."
+          class="form-control"
+          formControlName="imageUrl"
+        />
+        <!-- <div
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="password.errors.required">
+            Password is required.
+          </div>
+          <div *ngIf="password.errors.minlength">
+            Password must be at least 4 characters long.
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 offset-sm-4 form-group">
+        <label>Book creator</label>
+        <input
+          type="text"
+          disabled
+          class="form-control"
+          formControlName="creator"
+        />
+        <!-- <div
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="password.errors.required">
+            Password is required.
+          </div>
+          <div *ngIf="password.errors.minlength">
+            Password must be at least 4 characters long.
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <button
+      type="submit"
+      [disabled]="addBookForm.invalid"
+      class="btn btn-primary"
+    >
+      Login
+    </button>
+  </form>
+</div>

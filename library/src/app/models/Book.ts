@@ -4,4 +4,5 @@ export class Book {
   title: string;
   description: string;
   imageUrl: string;
+  creator: string;
 }
