@@ -43,17 +43,6 @@
           class="form-control"
           formControlName="description"
         ></textarea>
-        <!-- <div
-          *ngIf="password.invalid && (password.dirty || password.touched)"
-          class="alert alert-danger"
-        >
-          <div *ngIf="password.errors.required">
-            Password is required.
-          </div>
-          <div *ngIf="password.errors.minlength">
-            Password must be at least 4 characters long.
-          </div>
-        </div> -->
       </div>
     </div>
     <div class="row">
@@ -65,39 +54,12 @@
           class="form-control"
           formControlName="imageUrl"
         />
-        <!-- <div
-          *ngIf="password.invalid && (password.dirty || password.touched)"
-          class="alert alert-danger"
-        >
-          <div *ngIf="password.errors.required">
-            Password is required.
-          </div>
-          <div *ngIf="password.errors.minlength">
-            Password must be at least 4 characters long.
-          </div>
-        </div> -->
       </div>
     </div>
     <div class="row">
       <div class="col-sm-4 offset-sm-4 form-group">
         <label>Book creator</label>
-        <input
-          type="text"
-          disabled
-          class="form-control"
-          formControlName="creator"
-        />
-        <!-- <div
-          *ngIf="password.invalid && (password.dirty || password.touched)"
-          class="alert alert-danger"
-        >
-          <div *ngIf="password.errors.required">
-            Password is required.
-          </div>
-          <div *ngIf="password.errors.minlength">
-            Password must be at least 4 characters long.
-          </div>
-        </div> -->
+        <input type="text" class="form-control" formControlName="creator" />
       </div>
     </div>
     <button
@@ -105,7 +67,7 @@
       [disabled]="addBookForm.invalid"
       class="btn btn-primary"
     >
-      Login
+      Add Book
     </button>
   </form>
 </div>

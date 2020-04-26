@@ -13,5 +13,7 @@
     >Logout {{ username }}</a
   >
   <a class="btn btn-primary mr-1" routerLink="/books">Books</a>
-  <a class="btn btn-primary" routerLink="/addBook">Add Book</a>
+  <a class="btn btn-primary" *ngIf="checkIfLogged()" routerLink="/addBook"
+    >Add Book</a
+  >
 </nav>

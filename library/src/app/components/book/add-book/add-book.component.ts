@@ -16,7 +16,10 @@ export class AddBookComponent implements OnInit {
     title: new FormControl('', [Validators.required]),
     description: new FormControl(''),
     imageUrl: new FormControl(''),
-    creator: new FormControl(sessionStorage.getItem('username')),
+    creator: new FormControl({
+      value: sessionStorage.getItem('username'),
+      disabled: true,
+    }),
   });
 
   get author() {
