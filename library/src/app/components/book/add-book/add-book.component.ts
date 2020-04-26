@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { BookService } from 'src/app/services/book.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-addd-book',
@@ -7,7 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./add-book.component.css'],
 })
 export class AddBookComponent implements OnInit {
-  constructor() {}
+  constructor(private bookService: BookService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -16,10 +18,7 @@ export class AddBookComponent implements OnInit {
     title: new FormControl('', [Validators.required]),
     description: new FormControl(''),
     imageUrl: new FormControl(''),
-    creator: new FormControl({
-      value: sessionStorage.getItem('username'),
-      disabled: true,
-    }),
+    creator: new FormControl(sessionStorage.getItem('username')),
   });
 
   get author() {
@@ -30,5 +29,14 @@ export class AddBookComponent implements OnInit {
     return this.addBookForm.get('title');
   }
 
-  addBook() {}
+  addBook() {
+    this.bookService.addBook(this.addBookForm.value).subscribe(
+      (data) => {
+        this.router.navigateByUrl('books');
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 }

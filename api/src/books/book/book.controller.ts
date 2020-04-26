@@ -1,6 +1,16 @@
-import { Controller, Get, Post, Body, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  ValidationPipe,
+  UseGuards,
+} from '@nestjs/common';
 import { BookService } from './book.service';
 import { BookDTO } from 'src/models/book.model';
+import { AuthGuard } from '@nestjs/passport';
+import { User } from 'src/auth/user.decorator';
+import { UserEntity } from 'src/entities/user.entity';
 
 @Controller('books')
 export class BookController {
@@ -12,6 +22,7 @@ export class BookController {
   }
 
   @Post()
+  @UseGuards(AuthGuard())
   addBook(@Body(ValidationPipe) book: BookDTO) {
     return this.bookService.addBook(book);
   }
