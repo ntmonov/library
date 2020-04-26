@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterComponent implements OnInit {
   errorMessage: string = '';
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -49,7 +50,10 @@ export class RegisterComponent implements OnInit {
   register() {
     delete this.registerForm['confirmPass'];
     this.authService.register(this.registerForm.value).subscribe(
-      (user) => this.authService.saveSession(user),
+      (user) => {
+        this.authService.saveSession(user);
+        this.router.navigateByUrl('/');
+      },
       (err) => {
         this.errorMessage = err.error.message;
       }

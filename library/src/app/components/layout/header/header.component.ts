@@ -7,12 +7,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  username: string = '';
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    this.username = sessionStorage.getItem('username');
-  }
+  ngOnInit(): void {}
 
   logout() {
     sessionStorage.clear();
@@ -20,5 +17,9 @@ export class HeaderComponent implements OnInit {
 
   checkIfLogged() {
     return this.authService.isAuthenticated();
+  }
+
+  get username(): string {
+    return sessionStorage.getItem('username');
   }
 }
