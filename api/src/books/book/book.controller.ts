@@ -29,9 +29,13 @@ export class BookController {
     return this.bookService.addBook(book);
   }
 
-  @Delete(':bookId')
+  @Delete(':bookId/:creator')
   @UseGuards(AuthGuard())
-  deleteBook(@Param('bookId') bookId: number) {
-    this.bookService.deleteBook(bookId);
+  deleteBook(
+    @Param('bookId') bookId: number,
+    @Param('creator') creator: string,
+    @User() { username }: UserEntity,
+  ) {
+    return this.bookService.deleteBook(bookId, creator, username);
   }
 }

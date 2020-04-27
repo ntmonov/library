@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BookEntity } from 'src/entities/book.entity';
 import { Repository } from 'typeorm';
@@ -20,7 +20,10 @@ export class BookService {
     return b;
   }
 
-  async deleteBook(bookId: number) {
+  async deleteBook(bookId: number, creator: string, username: string) {
+    if (creator !== username) {
+      throw new UnauthorizedException('Unauthorized');
+    }
     await this.bookRepo.delete(bookId);
   }
 }

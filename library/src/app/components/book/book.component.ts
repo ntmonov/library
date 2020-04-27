@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from 'src/app/services/book.service';
 import { Book } from 'src/app/models/Book';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-book',
@@ -9,18 +10,22 @@ import { Book } from 'src/app/models/Book';
 })
 export class BookComponent implements OnInit {
   books: Book[];
-  constructor(private bookService: BookService) {}
+  constructor(
+    private bookService: BookService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.bookService.getAllBooks().subscribe((data) => (this.books = data));
   }
 
-  deleteBook(bookId: number) {
-    this.bookService.deleteBook(bookId).subscribe(
+  deleteBook(book: Book) {
+    this.bookService.deleteBook(book).subscribe(
       (data) => {
-        this.books = this.books.filter((b) => b.id !== bookId);
+        this.books = this.books.filter((b) => b.id !== book.id);
+        this.toastr.success('Book deleted');
       },
-      (err) => console.log(err)
+      (err) => this.toastr.error(err.error.message)
     );
   }
 }
