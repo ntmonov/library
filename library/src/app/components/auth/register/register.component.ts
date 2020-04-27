@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,11 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   errorMessage: string = '';
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -52,10 +57,11 @@ export class RegisterComponent implements OnInit {
     this.authService.register(this.registerForm.value).subscribe(
       (user) => {
         this.authService.saveSession(user);
+        this.toastr.success('Register successfull');
         this.router.navigateByUrl('/');
       },
       (err) => {
-        this.errorMessage = err.error.message;
+        this.toastr.error(err.error.message);
       }
     );
   }
