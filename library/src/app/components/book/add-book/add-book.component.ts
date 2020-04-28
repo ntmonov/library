@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BookService } from 'src/app/services/book.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-addd-book',
@@ -9,7 +10,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-book.component.css'],
 })
 export class AddBookComponent implements OnInit {
-  constructor(private bookService: BookService, private router: Router) {}
+  constructor(
+    private bookService: BookService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -35,7 +40,7 @@ export class AddBookComponent implements OnInit {
         this.router.navigateByUrl('books');
       },
       (err) => {
-        console.log(err);
+        this.toastr.error(err.error.message);
       }
     );
   }
