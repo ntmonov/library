@@ -7,6 +7,7 @@ import {
   UseGuards,
   Delete,
   Param,
+  Put,
 } from '@nestjs/common';
 import { BookService } from './book.service';
 import { BookDTO } from 'src/models/book.model';
@@ -23,6 +24,11 @@ export class BookController {
     return this.bookService.getAllBooks();
   }
 
+  @Get(':bookId')
+  getBook(@Param('bookId') booId: number) {
+    return this.bookService.getBook(booId);
+  }
+
   @Post()
   @UseGuards(AuthGuard())
   addBook(@Body(ValidationPipe) book: BookDTO) {
@@ -37,5 +43,16 @@ export class BookController {
     @User() { username }: UserEntity,
   ) {
     return this.bookService.deleteBook(bookId, creator, username);
+  }
+
+  @Put(':bookId/:creator')
+  @UseGuards(AuthGuard())
+  updateBook(
+    @Param('bookId') bookId: number,
+    @Param('creator') creator: string,
+    @User() { username }: UserEntity,
+    @Body() book: BookDTO,
+  ) {
+    return this.bookService.updateBook(bookId, creator, username, book);
   }
 }

@@ -13,6 +13,10 @@ export class BookService {
     return this.http.get<Book[]>('http://localhost:3000/api/books');
   }
 
+  getBook(bookId: number): Observable<Book> {
+    return this.http.get<Book>(`http://localhost:3000/api/books/${bookId}`);
+  }
+
   addBook(book: Book): Observable<Book> {
     const headers = new HttpHeaders({
       Authorization: 'Token ' + sessionStorage.getItem('token'),

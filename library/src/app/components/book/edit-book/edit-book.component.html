@@ -1,0 +1,67 @@
+<div class="container text-center">
+  <form [formGroup]="editBookForm" (ngSubmit)="editBook()">
+    <div class="row">
+      <div class="col-sm-4 offset-sm-4 form-group">
+        <label>Author</label>
+        <input
+          type="text"
+          placeholder="Enter author here.."
+          class="form-control"
+          formControlName="author"
+        />
+        <div
+          *ngIf="author.invalid && (author.dirty || author.touched)"
+          class="alert alert-danger"
+        >
+          Author is required
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 offset-sm-4 form-group">
+        <label>Title</label>
+        <input
+          type="text"
+          placeholder="Enter title Here.."
+          class="form-control"
+          formControlName="title"
+        />
+        <div
+          *ngIf="title.invalid && (title.dirty || title.touched)"
+          class="alert alert-danger"
+        >
+          Title is required
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 offset-sm-4 form-group">
+        <label>Description</label>
+        <textarea
+          type="text"
+          placeholder="Enter description Here.."
+          class="form-control"
+          formControlName="description"
+        ></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 offset-sm-4 form-group">
+        <label>Image URL</label>
+        <input
+          type="text"
+          placeholder="Enter imageUrl Here.."
+          class="form-control"
+          formControlName="imageUrl"
+        />
+      </div>
+    </div>
+    <button
+      type="submit"
+      [disabled]="editBookForm.invalid"
+      class="btn btn-primary"
+    >
+      Update Book
+    </button>
+  </form>
+</div>

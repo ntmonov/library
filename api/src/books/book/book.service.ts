@@ -15,6 +15,11 @@ export class BookService {
     return books;
   }
 
+  async getBook(bookId: number) {
+    const book = await this.bookRepo.findOne(bookId);
+    return book;
+  }
+
   async addBook(book: BookDTO) {
     const b = await this.bookRepo.insert(book);
     return b;
@@ -25,5 +30,17 @@ export class BookService {
       throw new UnauthorizedException('Unauthorized');
     }
     await this.bookRepo.delete(bookId);
+  }
+
+  async updateBook(
+    bookId: number,
+    creator: string,
+    username: string,
+    book: BookDTO,
+  ) {
+    if (creator !== username) {
+      throw new UnauthorizedException('Unauthorized');
+    }
+    await this.bookRepo.update(bookId, book);
   }
 }

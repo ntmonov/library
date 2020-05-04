@@ -15,6 +15,9 @@
         of the card's content.
       </p>
       <p>Created by {{ book.creator }}</p>
+      <a class="btn btn-warning mr-1" routerLink="/editBook/{{ book.id }}"
+        >Update</a
+      >
       <button (click)="deleteBook(book)" class="btn btn-danger">
         Delete
       </button>
