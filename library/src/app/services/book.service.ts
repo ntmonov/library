@@ -41,4 +41,16 @@ export class BookService {
       }
     );
   }
+
+  updateBook(book: Book) {
+    const headers = new HttpHeaders({
+      Authorization: 'Token ' + sessionStorage.getItem('token'),
+      'Content-Type': 'application/json',
+    });
+    return this.http.put(
+      `http://localhost:3000/api/books/${book.id}/${book.creator}`,
+      book,
+      { headers }
+    );
+  }
 }

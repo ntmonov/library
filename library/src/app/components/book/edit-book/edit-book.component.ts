@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BookService } from 'src/app/services/book.service';
 import { Book } from 'src/app/models/Book';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-book',
@@ -22,7 +22,8 @@ export class EditBookComponent implements OnInit {
 
   constructor(
     private bookService: BookService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -41,7 +42,7 @@ export class EditBookComponent implements OnInit {
       title: new FormControl(this.book.title, [Validators.required]),
       description: new FormControl(this.book.description),
       imageUrl: new FormControl(this.book.imageUrl),
-      creator: new FormControl(sessionStorage.getItem('username')),
+      creator: new FormControl(this.book.creator),
     });
   }
 
@@ -54,6 +55,10 @@ export class EditBookComponent implements OnInit {
   }
 
   editBook() {
-    console.log('edit');
+    this.editBookForm.value['id'] = this.bookId;
+    this.bookService.updateBook(this.editBookForm.value).subscribe(
+      (data) => this.router.navigateByUrl('books'),
+      (err) => console.log(err)
+    );
   }
 }
