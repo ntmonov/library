@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BookService } from 'src/app/services/book.service';
 import { Book } from 'src/app/models/Book';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-book',
@@ -23,7 +24,8 @@ export class EditBookComponent implements OnInit {
   constructor(
     private bookService: BookService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -57,8 +59,11 @@ export class EditBookComponent implements OnInit {
   editBook() {
     this.editBookForm.value['id'] = this.bookId;
     this.bookService.updateBook(this.editBookForm.value).subscribe(
-      (data) => this.router.navigateByUrl('books'),
-      (err) => console.log(err)
+      (data) => {
+        this.toastr.success('Book updated');
+        this.router.navigateByUrl('books');
+      },
+      (err) => this.toastr.error(err.error.message)
     );
   }
 }

@@ -28,4 +28,8 @@ export class BookComponent implements OnInit {
       (err) => this.toastr.error(err.error.message)
     );
   }
+
+  isAuthor(book: Book) {
+    return book.creator === sessionStorage.getItem('username');
+  }
 }
