@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Book } from '../models/Book';
+import { Book, FavBook } from '../models/Book';
 
 @Injectable({
   providedIn: 'root',
@@ -52,5 +52,9 @@ export class BookService {
       book,
       { headers }
     );
+  }
+
+  addToFav(book: FavBook): Observable<FavBook> {
+    return this.http.post<FavBook>('http://localhost:3000/api/favBooks', book);
   }
 }

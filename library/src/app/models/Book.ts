@@ -6,3 +6,7 @@ export class Book {
   imageUrl: string;
   creator: string;
 }
+
+export class FavBook extends Book {
+  owner: string;
+}

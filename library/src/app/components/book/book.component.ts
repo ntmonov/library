@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from 'src/app/services/book.service';
-import { Book } from 'src/app/models/Book';
+import { Book, FavBook } from 'src/app/models/Book';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -31,5 +31,17 @@ export class BookComponent implements OnInit {
 
   isAuthor(book: Book) {
     return book.creator === sessionStorage.getItem('username');
+  }
+
+  addToFav(book: FavBook) {
+    book['owner'] = sessionStorage.getItem('username');
+    this.bookService.addToFav(book).subscribe(
+      (data) => {
+        this.toastr.success('Successfully added to favorites');
+      },
+      (err) => {
+        this.toastr.error(err.error.message);
+      }
+    );
   }
 }

@@ -16,3 +16,8 @@ export class BookDTO {
   @IsString()
   creator: string;
 }
+
+export class FavoriteBookDTO extends BookDTO {
+  @IsString()
+  owner: string;
+}

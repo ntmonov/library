@@ -1,13 +1,20 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  ConflictException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BookEntity } from 'src/entities/book.entity';
 import { Repository } from 'typeorm';
-import { BookDTO } from 'src/models/book.model';
+import { BookDTO, FavoriteBookDTO } from 'src/models/book.model';
+import { FavoriteBookEntity } from 'src/entities/favBook.entity';
 
 @Injectable()
 export class BookService {
   constructor(
     @InjectRepository(BookEntity) private bookRepo: Repository<BookEntity>,
+    @InjectRepository(FavoriteBookEntity)
+    private favBookRepo: Repository<FavoriteBookEntity>,
   ) {}
 
   async getAllBooks() {
@@ -42,5 +49,14 @@ export class BookService {
       throw new UnauthorizedException('Unauthorized');
     }
     await this.bookRepo.update(bookId, book);
+  }
+
+  async addToFavorites(book: FavoriteBookDTO) {
+    const bookInDB = this.favBookRepo.findOne(book['id']);
+    if (bookInDB) {
+      throw new ConflictException('Book allready exists');
+    }
+    const b = await this.favBookRepo.insert(book);
+    return b;
   }
 }
