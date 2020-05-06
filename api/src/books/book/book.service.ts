@@ -51,12 +51,20 @@ export class BookService {
     await this.bookRepo.update(bookId, book);
   }
 
-  async addToFavorites(book: FavoriteBookDTO) {
-    const bookInDB = this.favBookRepo.findOne(book['id']);
+  async addToFavorites(book: FavoriteBookDTO, owner: string) {
+    console.warn(book);
+    const bookInDB = await this.favBookRepo.findOne({
+      id: book['id'],
+      owner: owner,
+    });
     if (bookInDB) {
       throw new ConflictException('Book allready exists');
     }
     const b = await this.favBookRepo.insert(book);
     return b;
+  }
+
+  async getFavCount(owner) {
+    return await this.favBookRepo.count({ owner });
   }
 }

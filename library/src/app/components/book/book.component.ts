@@ -33,15 +33,19 @@ export class BookComponent implements OnInit {
     return book.creator === sessionStorage.getItem('username');
   }
 
-  addToFav(book: FavBook) {
+  async addToFav(book: FavBook) {
     book['owner'] = sessionStorage.getItem('username');
     this.bookService.addToFav(book).subscribe(
-      (data) => {
-        this.toastr.success('Successfully added to favorites');
+      () => {
+        this.toastr.success('Book successfully added to favorites');
+        this.bookService.getFavCount().subscribe(
+          (count) => {
+            sessionStorage.setItem('favCount', count.toString());
+          },
+          (err) => this.toastr.error(err.error.message)
+        );
       },
-      (err) => {
-        this.toastr.error(err.error.message);
-      }
+      (err) => this.toastr.error(err.error.message)
     );
   }
 }

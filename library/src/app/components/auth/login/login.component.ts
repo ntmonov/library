@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { BookService } from 'src/app/services/book.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private bookService: BookService
   ) {}
 
   ngOnInit(): void {}
@@ -43,6 +45,13 @@ export class LoginComponent implements OnInit {
       (user) => {
         this.authService.saveSession(user);
         this.toastr.success('Login successfull');
+        this.bookService.getFavCount().subscribe((data) => {
+          if (!data) {
+            sessionStorage.setItem('favCount', '0');
+          } else {
+            sessionStorage.setItem('favCount', data.toString());
+          }
+        });
         this.router.navigateByUrl('/');
       },
       (err) => {

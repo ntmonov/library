@@ -55,6 +55,23 @@ export class BookService {
   }
 
   addToFav(book: FavBook): Observable<FavBook> {
-    return this.http.post<FavBook>('http://localhost:3000/api/favBooks', book);
+    const headers = new HttpHeaders({
+      Authorization: 'Token ' + sessionStorage.getItem('token'),
+      'Content-Type': 'application/json',
+    });
+    return this.http.post<FavBook>('http://localhost:3000/api/favBooks', book, {
+      headers,
+    });
+  }
+
+  getFavCount(): Observable<number> {
+    const headers = new HttpHeaders({
+      Authorization: 'Token ' + sessionStorage.getItem('token'),
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<number>(
+      'http://localhost:3000/api/favBooks/countOfBooks',
+      { headers }
+    );
   }
 }
