@@ -1,3 +1,22 @@
+<div class="row mb-1">
+  <div class="col-md-4 offset-md-4">
+    <input type="text" class="mr-1" #item placeholder="Search..." />
+    <select #criteria class="mr-1">
+      <option value="title">Title</option>
+      <option value="author">Author</option>
+    </select>
+    <button
+      class="btn btn-primary mr-1"
+      (click)="search(item.value, criteria.value)"
+    >
+      Search
+    </button>
+    <button class="btn btn-primary" (click)="reset()">Reset</button>
+  </div>
+</div>
+<div *ngIf="books.length === 0">
+  No books
+</div>
 <div *ngFor="let book of books">
   <div class="card text-center bg-light container mb-1 w-50">
     <div>
@@ -9,7 +28,9 @@
     </div>
 
     <div class="card-body">
-      <h5 class="card-title">{{ book.title }}</h5>
+      <h5 class="card-title">Title: {{ book.title }}</h5>
+      <h5 class="card-title">Author: {{ book.author }}</h5>
+
       <p class="card-text">
         Some quick example text to build on the card title and make up the bdivk
         of the card's content.

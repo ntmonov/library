@@ -9,7 +9,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./book.component.css'],
 })
 export class BookComponent implements OnInit {
-  books: Book[];
+  books: Book[] = [];
+
   constructor(
     private bookService: BookService,
     private toastr: ToastrService
@@ -47,5 +48,24 @@ export class BookComponent implements OnInit {
       },
       (err) => this.toastr.error(err.error.message)
     );
+  }
+
+  search(item, criteria) {
+    this.books = this.books.filter((b) =>
+      this.checkIfMatches(b, item, criteria)
+    );
+  }
+
+  reset() {
+    this.bookService.getAllBooks().subscribe((data) => (this.books = data));
+  }
+
+  checkIfMatches(b: Book, item: string, criteria: string) {
+    const regex = new RegExp(`.*${item}.*`);
+    if (criteria === 'title') {
+      return regex.test(b.title);
+    } else {
+      return regex.test(b.author);
+    }
   }
 }
