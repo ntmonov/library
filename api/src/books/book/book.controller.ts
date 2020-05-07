@@ -31,8 +31,11 @@ export class BookController {
 
   @Post()
   @UseGuards(AuthGuard())
-  addBook(@Body(ValidationPipe) book: BookDTO) {
-    return this.bookService.addBook(book);
+  addBook(
+    @Body(ValidationPipe) book: BookDTO,
+    @User() { isAdmin }: UserEntity,
+  ) {
+    return this.bookService.addBook(book, isAdmin);
   }
 
   @Delete(':bookId/:creator')

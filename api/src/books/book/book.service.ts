@@ -27,7 +27,8 @@ export class BookService {
     return book;
   }
 
-  async addBook(book: BookDTO) {
+  async addBook(book: BookDTO, isAdmin: boolean) {
+    if (!isAdmin) throw new UnauthorizedException('Admin only');
     const b = await this.bookRepo.insert(book);
     return b;
   }
@@ -52,7 +53,6 @@ export class BookService {
   }
 
   async addToFavorites(book: FavoriteBookDTO, owner: string) {
-    console.warn(book);
     const bookInDB = await this.favBookRepo.findOne({
       id: book['id'],
       owner: owner,

@@ -50,17 +50,17 @@ export class BookComponent implements OnInit {
     );
   }
 
-  search(item, criteria) {
+  search(item, criteria): void {
     this.books = this.books.filter((b) =>
       this.checkIfMatches(b, item, criteria)
     );
   }
 
-  reset() {
+  reset(): void {
     this.bookService.getAllBooks().subscribe((data) => (this.books = data));
   }
 
-  checkIfMatches(b: Book, item: string, criteria: string) {
+  checkIfMatches(b: Book, item: string, criteria: string): boolean {
     const regex = new RegExp(`.*${item}.*`);
     if (criteria === 'title') {
       return regex.test(b.title);

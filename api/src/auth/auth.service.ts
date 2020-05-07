@@ -21,7 +21,7 @@ export class AuthService {
     try {
       const user = this.userRepo.create(credentials);
       await user.save();
-      const payload = { username: user.username };
+      const payload = { username: user.username, isAdmin: user.isAdmin };
       const token = this.jwtService.sign(payload);
       return { user: { ...user.toJSON(), token } };
     } catch (err) {
@@ -40,7 +40,7 @@ export class AuthService {
       if (!isValid) {
         throw new Error();
       }
-      const payload = { username: user.username };
+      const payload = { username: user.username, isAdmin: user.isAdmin };
       const token = this.jwtService.sign(payload);
       return { user: { ...user.toJSON(), token } };
     } catch (err) {
