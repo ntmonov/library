@@ -4,7 +4,7 @@ import { IsString } from 'class-validator';
 
 @Entity('books')
 export class BookEntity extends AbstractEntity {
-  @Column({ unique: true })
+  @Column()
   @IsString()
   author: string;
 

@@ -1,6 +1,9 @@
-import { IsString } from 'class-validator';
+import { IsString, IsNumber } from 'class-validator';
 
 export class BookDTO {
+  @IsNumber()
+  bookId: number;
+
   @IsString()
   author: string;
 
@@ -12,4 +15,9 @@ export class BookDTO {
 
   @IsString()
   imageUrl: string;
+}
+
+export class CartBookDTO extends BookDTO {
+  @IsNumber()
+  qunatity: number;
 }
