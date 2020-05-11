@@ -32,4 +32,8 @@ export class HeaderComponent implements OnInit {
   get getCount(): number {
     return +sessionStorage.getItem('favCount');
   }
+
+  isAdmin(): boolean {
+    return this.authService.GetIsAdmin();
+  }
 }

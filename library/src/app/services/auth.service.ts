@@ -25,4 +25,12 @@ export class AuthService {
   login(user: User): Observable<User> {
     return this.http.post<User>('http://localhost:3000/api/users/login', user);
   }
+
+  GetIsAdmin(): boolean {
+    if (sessionStorage.getItem('token') === null) return false;
+    let jwtData = sessionStorage.getItem('token').split('.')[1];
+    let decodedJwtJsonData = window.atob(jwtData);
+    let decodedJwtData = JSON.parse(decodedJwtJsonData);
+    return decodedJwtData.isAdmin;
+  }
 }

@@ -17,4 +17,7 @@
     >Add Book</a
   >
   <p>Favorite Book Count: {{ getCount }}</p>
+  <div class="bg-danger p-2 m-2" *ngIf="isAdmin()">
+    Admin account
+  </div>
 </nav>
