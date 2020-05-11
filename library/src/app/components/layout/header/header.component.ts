@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
   }
 
   get username(): string {
-    return sessionStorage.getItem('username');
+    return this.authService.getUsername();
   }
 
   get getCount(): number {
@@ -34,6 +34,6 @@ export class HeaderComponent implements OnInit {
   }
 
   isAdmin(): boolean {
-    return this.authService.GetIsAdmin();
+    return this.authService.getIsAdmin();
   }
 }

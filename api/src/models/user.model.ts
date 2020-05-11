@@ -22,4 +22,5 @@ export class RegistrationDTO extends LoginDTO {
 
 export interface AuthPayload {
   username: string;
+  isAdmin: boolean;
 }

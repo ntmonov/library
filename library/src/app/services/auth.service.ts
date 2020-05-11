@@ -10,7 +10,6 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   saveSession(user: User) {
-    sessionStorage.setItem('username', user.user.username);
     sessionStorage.setItem('token', user.user.token);
   }
 
@@ -26,11 +25,19 @@ export class AuthService {
     return this.http.post<User>('http://localhost:3000/api/users/login', user);
   }
 
-  GetIsAdmin(): boolean {
+  getIsAdmin(): boolean {
     if (sessionStorage.getItem('token') === null) return false;
     let jwtData = sessionStorage.getItem('token').split('.')[1];
     let decodedJwtJsonData = window.atob(jwtData);
     let decodedJwtData = JSON.parse(decodedJwtJsonData);
     return decodedJwtData.isAdmin;
+  }
+
+  getUsername(): string {
+    if (sessionStorage.getItem('token') === null) return '';
+    let jwtData = sessionStorage.getItem('token').split('.')[1];
+    let decodedJwtJsonData = window.atob(jwtData);
+    let decodedJwtData = JSON.parse(decodedJwtJsonData);
+    return decodedJwtData.username;
   }
 }
