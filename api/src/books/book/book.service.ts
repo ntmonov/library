@@ -33,9 +33,9 @@ export class BookService {
     return b;
   }
 
-  async deleteBook(bookId: number, creator: string, username: string) {
-    if (creator !== username) {
-      throw new UnauthorizedException('Unauthorized');
+  async deleteBook(bookId: number, isAdmin: boolean) {
+    if (!isAdmin) {
+      return new UnauthorizedException('Admin only');
     }
     await this.bookRepo.delete(bookId);
   }

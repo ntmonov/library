@@ -34,12 +34,9 @@ export class BookService {
       'Content-Type': 'application/json',
     });
 
-    return this.http.delete(
-      `http://localhost:3000/api/books/${book.id}/${book.creator}`,
-      {
-        headers,
-      }
-    );
+    return this.http.delete(`http://localhost:3000/api/books/${book.id}`, {
+      headers,
+    });
   }
 
   updateBook(book: Book) {

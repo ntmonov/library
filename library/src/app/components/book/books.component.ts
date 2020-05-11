@@ -19,4 +19,8 @@ export class BooksComponent implements OnInit {
   ngOnInit(): void {
     this.bookService.getAllBooks().subscribe((data) => (this.books = data));
   }
+
+  delBook(book: Book) {
+    this.books = this.books.filter((b) => b['id'] !== book['id']);
+  }
 }
