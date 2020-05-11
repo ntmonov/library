@@ -44,14 +44,13 @@ export class BookController {
     return this.bookService.deleteBook(bookId, isAdmin);
   }
 
-  @Put(':bookId/:creator')
+  @Put(':bookId')
   @UseGuards(AuthGuard())
   updateBook(
     @Param('bookId') bookId: number,
-    @Param('creator') creator: string,
-    @User() { username }: UserEntity,
+    @User() { isAdmin }: UserEntity,
     @Body() book: BookDTO,
   ) {
-    return this.bookService.updateBook(bookId, creator, username, book);
+    return this.bookService.updateBook(bookId, book, isAdmin);
   }
 }

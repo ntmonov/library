@@ -44,11 +44,9 @@ export class BookService {
       Authorization: 'Token ' + sessionStorage.getItem('token'),
       'Content-Type': 'application/json',
     });
-    return this.http.put(
-      `http://localhost:3000/api/books/${book.id}/${book.creator}`,
-      book,
-      { headers }
-    );
+    return this.http.put(`http://localhost:3000/api/books/${book.id}`, book, {
+      headers,
+    });
   }
 
   addToFav(book: FavBook): Observable<FavBook> {

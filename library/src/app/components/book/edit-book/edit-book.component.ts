@@ -18,7 +18,6 @@ export class EditBookComponent implements OnInit {
     title: new FormControl('', [Validators.required]),
     description: new FormControl(''),
     imageUrl: new FormControl(''),
-    creator: new FormControl(sessionStorage.getItem('username')),
   });
 
   constructor(
@@ -44,7 +43,6 @@ export class EditBookComponent implements OnInit {
       title: new FormControl(this.book.title, [Validators.required]),
       description: new FormControl(this.book.description),
       imageUrl: new FormControl(this.book.imageUrl),
-      creator: new FormControl(this.book.creator),
     });
   }
 

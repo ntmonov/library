@@ -1,4 +1,10 @@
-import { IsEmail, IsString, MinLength, MaxLength } from 'class-validator';
+import {
+  IsEmail,
+  IsString,
+  MinLength,
+  MaxLength,
+  IsBoolean,
+} from 'class-validator';
 
 export class LoginDTO {
   @IsEmail()
@@ -18,6 +24,9 @@ export class RegistrationDTO extends LoginDTO {
 
   @IsString()
   address: string;
+
+  @IsBoolean()
+  isAdmin: boolean;
 }
 
 export interface AuthPayload {

@@ -22,8 +22,4 @@ export class BookEntity extends AbstractEntity {
   })
   @IsString()
   imageUrl: string;
-
-  @Column()
-  @IsString()
-  creator: string;
 }

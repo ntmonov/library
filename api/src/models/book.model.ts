@@ -12,12 +12,4 @@ export class BookDTO {
 
   @IsString()
   imageUrl: string;
-
-  @IsString()
-  creator: string;
-}
-
-export class FavoriteBookDTO extends BookDTO {
-  @IsString()
-  owner: string;
 }
