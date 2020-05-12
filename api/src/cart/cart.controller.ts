@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param, UseGuards } from '@nestjs/common';
+import { Controller, Post, Body, Param, UseGuards, Get } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { BookDTO, CartBookDTO } from 'src/models/book.model';
 import { AuthGuard } from '@nestjs/passport';
@@ -13,5 +13,10 @@ export class CartController {
   @UseGuards(AuthGuard())
   addToCart(@Param('bookId') bookId: number, @User() { username }: UserEntity) {
     this.cartService.addToCart(bookId, username);
+  }
+
+  @Get(':owner')
+  GetBooksFromCart(@Param('owner') owner: string) {
+    return this.cartService.getCartBooks(owner);
   }
 }
