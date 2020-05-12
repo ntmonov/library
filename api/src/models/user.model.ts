@@ -26,7 +26,7 @@ export class RegistrationDTO extends LoginDTO {
   address: string;
 
   @IsBoolean()
-  isAdmin: boolean;
+  isAdmin: boolean = false;
 }
 
 export interface AuthPayload {

@@ -44,15 +44,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe(
       (user) => {
         this.authService.saveSession(user);
-
         this.toastr.success('Login successfull');
-        this.bookService.getFavCount().subscribe((data) => {
-          if (!data) {
-            sessionStorage.setItem('favCount', '0');
-          } else {
-            sessionStorage.setItem('favCount', data.toString());
-          }
-        });
         this.router.navigateByUrl('/');
       },
       (err) => {

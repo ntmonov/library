@@ -1,14 +1,18 @@
-import { BookEntity } from './book.entity';
-import { Column, Entity } from 'typeorm';
-import { IsNumber } from 'class-validator';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { IsNumber, IsString } from 'class-validator';
+import { AbstractEntity } from './abstract-entity';
 
 @Entity('cart')
-export class CartEntity extends BookEntity {
-  @Column({ default: 1 })
+export class CartEntity extends AbstractEntity {
+  @Column()
   @IsNumber()
   quantity: number;
 
-  @Column({ default: 1 })
+  @Column()
   @IsNumber()
   bookId: number;
+
+  @Column()
+  @IsString()
+  owner: string;
 }

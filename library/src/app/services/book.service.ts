@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Book, FavBook } from '../models/Book';
+import { Book } from '../models/Book';
 
 @Injectable({
   providedIn: 'root',
@@ -47,26 +47,5 @@ export class BookService {
     return this.http.put(`http://localhost:3000/api/books/${book.id}`, book, {
       headers,
     });
-  }
-
-  addToFav(book: FavBook): Observable<FavBook> {
-    const headers = new HttpHeaders({
-      Authorization: 'Token ' + sessionStorage.getItem('token'),
-      'Content-Type': 'application/json',
-    });
-    return this.http.post<FavBook>('http://localhost:3000/api/favBooks', book, {
-      headers,
-    });
-  }
-
-  getFavCount(): Observable<number> {
-    const headers = new HttpHeaders({
-      Authorization: 'Token ' + sessionStorage.getItem('token'),
-      'Content-Type': 'application/json',
-    });
-    return this.http.get<number>(
-      'http://localhost:3000/api/favBooks/countOfBooks',
-      { headers }
-    );
   }
 }

@@ -1,7 +1,6 @@
 import { IsString, IsNumber } from 'class-validator';
 
 export class BookDTO {
-  @IsNumber()
   bookId: number;
 
   @IsString()
@@ -17,7 +16,13 @@ export class BookDTO {
   imageUrl: string;
 }
 
-export class CartBookDTO extends BookDTO {
+export class CartBookDTO {
   @IsNumber()
   qunatity: number;
+
+  @IsString()
+  owner: string;
+
+  @IsNumber()
+  bookId: number;
 }

@@ -3,6 +3,7 @@ import { Book } from 'src/app/models/Book';
 import { BookService } from 'src/app/services/book.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-book',
@@ -15,12 +16,11 @@ export class BookComponent implements OnInit {
   constructor(
     private bookService: BookService,
     private toastr: ToastrService,
-    private authService: AuthService
+    private authService: AuthService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {}
-
-  addToFav(book: Book) {}
 
   deleteBook(book: Book) {
     this.bookService.deleteBook(book).subscribe(
@@ -36,5 +36,16 @@ export class BookComponent implements OnInit {
 
   isAdmin(): boolean {
     return this.authService.getIsAdmin();
+  }
+
+  addToCart() {
+    this.cartService.addToCart(this.book).subscribe(
+      () => {
+        this.toastr.success('Book added to cart');
+      },
+      (err) => {
+        this.toastr.error(err.error.message);
+      }
+    );
   }
 }
