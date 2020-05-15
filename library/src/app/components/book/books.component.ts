@@ -11,13 +11,12 @@ import { ToastrService } from 'ngx-toastr';
 export class BooksComponent implements OnInit {
   books: Book[] = [];
 
-  constructor(
-    private bookService: BookService,
-    private toastr: ToastrService
-  ) {}
+  constructor(private bookService: BookService) {}
 
   ngOnInit(): void {
-    this.bookService.getAllBooks().subscribe((data) => (this.books = data));
+    this.bookService.getAllBooks().subscribe((data) => {
+      this.books = data;
+    });
   }
 
   delBook(book: Book) {

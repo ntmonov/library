@@ -16,19 +16,23 @@ export class CartService {
 
   async addToCart(bookId: number, username: string) {
     const b = await this.cartRepo.findOne({ bookId, owner: username });
-    console.log(b);
     if (b) {
       b.quantity++;
-      return this.cartRepo.save({
+      const cartItem = await this.cartRepo.save({
         ...b,
         b,
       });
+      const bk = await this.bookService.getBook(cartItem.bookId);
+      return bk;
     } else {
       let book = new CartEntity();
       book.bookId = bookId;
       book.owner = username;
       book.quantity = 1;
-      return await this.cartRepo.save(book);
+      const cartItem = await this.cartRepo.save(book);
+      console.log(cartItem);
+      const bk = await this.bookService.getBook(cartItem.bookId);
+      return bk;
     }
   }
 
@@ -46,7 +50,11 @@ export class CartService {
   async getTotalCartPrice(owner) {
     const books = await this.getCartBooks(owner);
     let total: number = 0;
-    books.forEach(b => (total += b.price));
+    console.log(books);
+    books.forEach(b => {
+      total += b.price * b['quantity'];
+      console.log(b);
+    });
     return total;
   }
 }

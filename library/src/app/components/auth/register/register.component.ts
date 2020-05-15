@@ -57,6 +57,7 @@ export class RegisterComponent implements OnInit {
     this.authService.register(this.registerForm.value).subscribe(
       (user) => {
         this.authService.saveSession(user);
+        sessionStorage.setItem('total', '0');
         this.toastr.success('Register successfull');
         this.router.navigateByUrl('/');
       },

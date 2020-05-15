@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/services/cart.service';
-import { Book } from 'src/app/models/Book';
 
 @Component({
   selector: 'app-header',
@@ -12,10 +11,9 @@ import { Book } from 'src/app/models/Book';
 export class HeaderComponent implements OnInit {
   constructor(
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cartService: CartService
   ) {}
-
-  booksInCart: Book[];
 
   ngOnInit(): void {}
 
@@ -38,5 +36,9 @@ export class HeaderComponent implements OnInit {
 
   isAdmin(): boolean {
     return this.authService.getIsAdmin();
+  }
+
+  get totalPrice(): number {
+    return +sessionStorage.getItem('total') || 0;
   }
 }

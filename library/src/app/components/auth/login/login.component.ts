@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BookService } from 'src/app/services/book.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private toastr: ToastrService,
-    private bookService: BookService
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {}
@@ -44,6 +45,11 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe(
       (user) => {
         this.authService.saveSession(user);
+        this.cartService
+          .getTotalPrice(user.user.username)
+          .subscribe((data) =>
+            sessionStorage.setItem('total', data.toString())
+          );
         this.toastr.success('Login successfull');
         this.router.navigateByUrl('/');
       },

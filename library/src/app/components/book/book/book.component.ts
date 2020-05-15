@@ -39,10 +39,12 @@ export class BookComponent implements OnInit {
   }
 
   addToCart() {
-    const total = sessionStorage.getItem('total') || 0;
-    console.log(total);
+    let total = +sessionStorage.getItem('total') || 0;
     this.cartService.addToCart(this.book).subscribe(
-      (b) => {},
+      (b) => {
+        total += b.price;
+        sessionStorage.setItem('total', total.toString());
+      },
       (err) => {
         this.toastr.error(err.error.message);
       }

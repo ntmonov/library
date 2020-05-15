@@ -23,7 +23,6 @@ export class AddBookComponent implements OnInit {
     title: new FormControl('', [Validators.required]),
     description: new FormControl(''),
     imageUrl: new FormControl(''),
-    creator: new FormControl(sessionStorage.getItem('username')),
     price: new FormControl('', [Validators.required]),
   });
 
