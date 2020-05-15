@@ -14,6 +14,9 @@ export class BookDTO {
 
   @IsString()
   imageUrl: string;
+
+  @IsNumber()
+  price: number;
 }
 
 export class CartBookDTO {

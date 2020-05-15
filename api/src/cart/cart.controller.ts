@@ -12,11 +12,16 @@ export class CartController {
   @Post(':bookId')
   @UseGuards(AuthGuard())
   addToCart(@Param('bookId') bookId: number, @User() { username }: UserEntity) {
-    this.cartService.addToCart(bookId, username);
+    return this.cartService.addToCart(bookId, username);
   }
 
-  @Get(':owner')
-  GetBooksFromCart(@Param('owner') owner: string) {
-    return this.cartService.getCartBooks(owner);
+  @Get('')
+  GetBooksFromCart(@User() { username }: UserEntity) {
+    return this.cartService.getCartBooks(username);
+  }
+
+  @Get('total/:owner')
+  getTotalPrice(@Param('owner') username: string) {
+    return this.cartService.getTotalCartPrice(username);
   }
 }

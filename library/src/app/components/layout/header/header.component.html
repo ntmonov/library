@@ -16,8 +16,9 @@
     >Logout {{ username }}</a
   >
   <a class="btn btn-primary mr-1" routerLink="/books">Books</a>
-  <a class="btn btn-primary" *ngIf="isAdmin()" routerLink="/addBook"
+  <a class="btn btn-primary mr-1" *ngIf="isAdmin()" routerLink="/addBook"
     >Add Book</a
   >
-  <p>Favorite Book Count: {{ getCount }}</p>
+  <a class="btn btn-primary" routerLink="/cart">Cart</a>
+  <!-- <p>Total Price: {{ totalPrice }}</p> -->
 </nav>

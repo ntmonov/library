@@ -19,7 +19,10 @@ export class CartService {
     console.log(b);
     if (b) {
       b.quantity++;
-      return await this.cartRepo.update({ id: b.id }, b);
+      return this.cartRepo.save({
+        ...b,
+        b,
+      });
     } else {
       let book = new CartEntity();
       book.bookId = bookId;
@@ -34,8 +37,16 @@ export class CartService {
     let cartItems = await this.cartRepo.find({ where: { owner } });
     for (let c of cartItems) {
       const book = await this.bookService.getBook(c.bookId);
+      book['quantity'] = c.quantity;
       books.push(book);
     }
     return books;
+  }
+
+  async getTotalCartPrice(owner) {
+    const books = await this.getCartBooks(owner);
+    let total: number = 0;
+    books.forEach(b => (total += b.price));
+    return total;
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { CartService } from 'src/app/services/cart.service';
+import { Book } from 'src/app/models/Book';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +14,8 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private toastr: ToastrService
   ) {}
+
+  booksInCart: Book[];
 
   ngOnInit(): void {}
 

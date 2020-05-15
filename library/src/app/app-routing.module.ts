@@ -7,6 +7,7 @@ import { BooksComponent } from './components/book/books.component';
 import { AddBookComponent } from './components/book/add-book/add-book.component';
 import { AuthGuard } from './guard/auth.guard';
 import { EditBookComponent } from './components/book/edit-book/edit-book.component';
+import { CartComponent } from './components/cart/cart.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: MainComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
     component: EditBookComponent,
     canActivate: [AuthGuard],
   },
+  { path: 'cart', component: CartComponent },
 ];
 
 @NgModule({

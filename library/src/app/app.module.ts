@@ -11,6 +11,7 @@ import { MainComponent } from './components/main/main/main.component';
 import { AuthModule } from './components/auth/auth.module';
 import { BookModule } from './components/book/book.module';
 import { ToastrModule } from 'ngx-toastr';
+import { CartModule } from './components/cart/cart.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent, MainComponent],
@@ -20,6 +21,7 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     AuthModule,
     BookModule,
+    CartModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
   ],

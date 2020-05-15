@@ -1,6 +1,6 @@
 import { AbstractEntity } from './abstract-entity';
 import { Entity, Column } from 'typeorm';
-import { IsString } from 'class-validator';
+import { IsString, IsNumber } from 'class-validator';
 import { classToPlain } from 'class-transformer';
 
 @Entity('books')
@@ -23,6 +23,10 @@ export class BookEntity extends AbstractEntity {
   })
   @IsString()
   imageUrl: string;
+
+  @Column()
+  @IsNumber()
+  price: number;
 
   toJSON() {
     return classToPlain(this);
