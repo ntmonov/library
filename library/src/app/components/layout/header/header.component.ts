@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,13 +13,14 @@ export class HeaderComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private toastr: ToastrService,
-    private cartService: CartService
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
 
   logout() {
     sessionStorage.clear();
+    this.router.navigateByUrl('/');
     this.toastr.success('Logout successfull');
   }
 
@@ -28,10 +30,6 @@ export class HeaderComponent implements OnInit {
 
   get username(): string {
     return this.authService.getUsername();
-  }
-
-  get getCount(): number {
-    return +sessionStorage.getItem('favCount');
   }
 
   isAdmin(): boolean {

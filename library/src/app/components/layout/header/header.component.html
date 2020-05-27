@@ -19,6 +19,6 @@
   <a class="btn btn-primary mr-1" *ngIf="isAdmin()" routerLink="/addBook"
     >Add Book</a
   >
-  <a class="btn btn-primary" routerLink="/cart">Cart</a>
-  <p>Total Price: {{ totalPrice }}</p>
+  <a *ngIf="checkIfLogged()" class="btn btn-primary" routerLink="/cart">Cart</a>
+  <p *ngIf="checkIfLogged()">Total Price: {{ totalPrice }}</p>
 </nav>

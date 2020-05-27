@@ -30,7 +30,6 @@ export class CartService {
       book.owner = username;
       book.quantity = 1;
       const cartItem = await this.cartRepo.save(book);
-      console.log(cartItem);
       const bk = await this.bookService.getBook(cartItem.bookId);
       return bk;
     }
@@ -50,10 +49,8 @@ export class CartService {
   async getTotalCartPrice(owner) {
     const books = await this.getCartBooks(owner);
     let total: number = 0;
-    console.log(books);
     books.forEach(b => {
       total += b.price * b['quantity'];
-      console.log(b);
     });
     return total;
   }

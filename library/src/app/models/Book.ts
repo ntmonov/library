@@ -6,3 +6,7 @@ export class Book {
   imageUrl: string;
   price: number;
 }
+
+export class BookInCart extends Book {
+  quantity: number;
+}

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Book } from 'src/app/models/Book';
+import { Book, BookInCart } from 'src/app/models/Book';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -23,8 +23,10 @@ export class CartService {
     );
   }
 
-  getCartItems(): Observable<Book[]> {
-    return this.http.get<Book[]>(`http://localhost:3000/api/cart/`);
+  getCartItems(owner: string): Observable<BookInCart[]> {
+    return this.http.get<BookInCart[]>(
+      `http://localhost:3000/api/cart/${owner}`
+    );
   }
 
   getTotalPrice(owner: string): Observable<number> {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from 'src/app/services/cart.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Book } from 'src/app/models/Book';
+import { BookInCart } from 'src/app/models/Book';
 
 @Component({
   selector: 'app-cart',
@@ -9,10 +9,16 @@ import { Book } from 'src/app/models/Book';
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
-  cart: Book[];
-  constructor(private cartService: CartService) {}
+  cart: BookInCart[];
+  constructor(
+    private cartService: CartService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.cartService.getCartItems().subscribe((data) => (this.cart = data));
+    const owner = this.authService.getUsername();
+    this.cartService
+      .getCartItems(owner)
+      .subscribe((data) => (this.cart = data));
   }
 }
