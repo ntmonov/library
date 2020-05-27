@@ -1,14 +1,23 @@
-<div class="card text-dark bg-default mb-3 mt-1" style="max-width: 18rem;">
+<div
+  *ngIf="book"
+  class="card text-dark bg-default mb-3 mt-1"
+  style="max-width: 18rem;"
+>
   <div class="card-body">
-    <img src="{{ cartItem.imageUrl }}" width="100%" />
+    <img src="{{ book.imageUrl }}" width="100%" />
   </div>
-  <div class="card-header">Author: {{ cartItem.author }}</div>
-  <div class="card-header">Title: {{ cartItem.title }}</div>
+  <div class="card-header">Author: {{ book.author }}</div>
+  <div class="card-header">Title: {{ book.title }}</div>
   <div class="card-footer">
     Quantity:
     <button class="btn btn-primary btn-sm">-</button>
-    <span class="badge badge-success ml-1 mr-1">{{ cartItem.quantity }}</span>
+    <span class="badge badge-success ml-1 mr-1">{{ book.quantity }}</span>
     <button class="btn btn-primary btn-sm">+</button>
   </div>
-  <div class="card-footer">Price: {{ cartItem.price }}</div>
+  <div class="card-footer">Price: {{ book.price }}</div>
+  <div class="card-footer">
+    <button class="btn btn-danger" (click)="deleteItem(book)">
+      Delete
+    </button>
+  </div>
 </div>

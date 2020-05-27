@@ -35,23 +35,29 @@ export class CartService {
     }
   }
 
-  async getCartBooks(owner: string) {
-    let books: Array<BookEntity> = [];
-    let cartItems = await this.cartRepo.find({ where: { owner } });
-    for (let c of cartItems) {
-      const book = await this.bookService.getBook(c.bookId);
-      book['quantity'] = c.quantity;
-      books.push(book);
-    }
-    return books;
+  async getCartBook(owner: string, bookId: number) {
+    const cartItem = await this.cartRepo.findOne({ bookId, owner });
+    const book = await this.bookService.getBook(cartItem.bookId);
+    book['quantity'] = cartItem.quantity;
+    return book;
   }
 
-  async getTotalCartPrice(owner) {
-    const books = await this.getCartBooks(owner);
+  async getCartItems(owner: string) {
+    const items = await this.cartRepo.find({ owner });
+    return items;
+  }
+
+  async deletBookFromCart(owner: string, bookId: number) {
+    return this.cartRepo.delete({ owner, bookId });
+  }
+
+  async getTotalCartPrice(owner: string) {
+    const items = await this.getCartItems(owner);
     let total: number = 0;
-    books.forEach(b => {
-      total += b.price * b['quantity'];
-    });
+    for (let i of items) {
+      const book = await this.getCartBook(owner, i.bookId);
+      total += book.price * book['quantity'];
+    }
     return total;
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Book, BookInCart } from 'src/app/models/Book';
 import { Observable } from 'rxjs';
+import { Cart } from '../models/Cart';
 
 @Injectable({
   providedIn: 'root',
@@ -23,9 +24,19 @@ export class CartService {
     );
   }
 
-  getCartItems(owner: string): Observable<BookInCart[]> {
-    return this.http.get<BookInCart[]>(
-      `http://localhost:3000/api/cart/${owner}`
+  getCartItems(owner: string): Observable<Cart[]> {
+    return this.http.get<Cart[]>(`http://localhost:3000/api/cart/${owner}`);
+  }
+
+  getBookFromCart(id: number, owner: string): Observable<BookInCart> {
+    return this.http.get<BookInCart>(
+      `http://localhost:3000/api/cart/book/${owner}/${id}`
+    );
+  }
+
+  deleteBookFromCart(owner: string, bookId: number) {
+    return this.http.delete(
+      `http://localhost:3000/api/cart/${owner}/${bookId}`
     );
   }
 
@@ -34,4 +45,8 @@ export class CartService {
       `http://localhost:3000/api/cart/total/${owner}`
     );
   }
+
+  // deleteItemFromCart(id: number) {
+  //   return this.http.delete(`http://localhost:3000/api/cart/${id}`);
+  // }
 }

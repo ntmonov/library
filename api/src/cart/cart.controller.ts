@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Param, UseGuards, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Param,
+  UseGuards,
+  Get,
+  Delete,
+} from '@nestjs/common';
 import { CartService } from './cart.service';
 import { AuthGuard } from '@nestjs/passport';
 import { User } from 'src/auth/user.decorator';
@@ -14,13 +22,29 @@ export class CartController {
     return this.cartService.addToCart(bookId, username);
   }
 
+  @Get('book/:owner/:bookId')
+  getBookFromCart(
+    @Param('owner') owner: string,
+    @Param('bookId') bookId: number,
+  ) {
+    return this.cartService.getCartBook(owner, bookId);
+  }
+
   @Get(':owner')
-  GetBooksFromCart(@Param('owner') username: string) {
-    return this.cartService.getCartBooks(username);
+  getCartItems(@Param('owner') owner: string) {
+    return this.cartService.getCartItems(owner);
+  }
+
+  @Delete(':owner/:bookId')
+  deleteBookFromCart(
+    @Param('owner') owner: string,
+    @Param('bookId') bookId: number,
+  ) {
+    return this.cartService.deletBookFromCart(owner, bookId);
   }
 
   @Get('total/:owner')
-  getTotalPrice(@Param('owner') username: string) {
-    return this.cartService.getTotalCartPrice(username);
+  getTotalPrice(@Param('owner') owner: string) {
+    return this.cartService.getTotalCartPrice(owner);
   }
 }
