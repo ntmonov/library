@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
       (user) => {
         this.authService.saveSession(user);
         this.cartService
-          .getTotalPrice(user.user.username)
+          .getTotalPrice()
           .subscribe((data) =>
             sessionStorage.setItem('total', data.toString())
           );

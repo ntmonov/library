@@ -1,5 +1,8 @@
 <div class="container">
   <div class="row" *ngFor="let cartItem of cart">
-    <app-cart-item [cartItem]="cartItem"></app-cart-item>
+    <app-cart-item
+      [cartItem]="cartItem"
+      (onDelete)="deleteCartItem($event)"
+    ></app-cart-item>
   </div>
 </div>

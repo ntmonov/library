@@ -1,7 +1,6 @@
 import {
   Controller,
   Post,
-  Body,
   Param,
   UseGuards,
   Get,
@@ -16,6 +15,12 @@ import { UserEntity } from 'src/entities/user.entity';
 export class CartController {
   constructor(private cartService: CartService) {}
 
+  @Get('total')
+  @UseGuards(AuthGuard())
+  getTotalPrice(@User() { username }: UserEntity) {
+    return this.cartService.getTotalCartPrice(username);
+  }
+
   @Post(':bookId')
   @UseGuards(AuthGuard())
   addToCart(@Param('bookId') bookId: number, @User() { username }: UserEntity) {
@@ -23,6 +28,7 @@ export class CartController {
   }
 
   @Get('book/:owner/:bookId')
+  @UseGuards(AuthGuard())
   getBookFromCart(
     @Param('owner') owner: string,
     @Param('bookId') bookId: number,
@@ -31,20 +37,17 @@ export class CartController {
   }
 
   @Get(':owner')
+  @UseGuards(AuthGuard())
   getCartItems(@Param('owner') owner: string) {
     return this.cartService.getCartItems(owner);
   }
 
   @Delete(':owner/:bookId')
+  @UseGuards(AuthGuard())
   deleteBookFromCart(
     @Param('owner') owner: string,
     @Param('bookId') bookId: number,
   ) {
     return this.cartService.deletBookFromCart(owner, bookId);
-  }
-
-  @Get('total/:owner')
-  getTotalPrice(@Param('owner') owner: string) {
-    return this.cartService.getTotalCartPrice(owner);
   }
 }

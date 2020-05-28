@@ -6,6 +6,7 @@ import { BookDTO } from 'src/models/book.model';
 import { BookService } from 'src/books/book/book.service';
 import { BookEntity } from 'src/entities/book.entity';
 import { json } from 'express';
+import { rejects } from 'assert';
 
 @Injectable()
 export class CartService {
@@ -52,10 +53,10 @@ export class CartService {
   }
 
   async getTotalCartPrice(owner: string) {
-    const items = await this.getCartItems(owner);
     let total: number = 0;
+    let items = await this.getCartItems(owner);
     for (let i of items) {
-      const book = await this.getCartBook(owner, i.bookId);
+      let book = await this.getCartBook(owner, i.bookId);
       total += book.price * book['quantity'];
     }
     return total;
