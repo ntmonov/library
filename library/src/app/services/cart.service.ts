@@ -65,7 +65,17 @@ export class CartService {
     });
   }
 
-  // deleteItemFromCart(id: number) {
-  //   return this.http.delete(`http://localhost:3000/api/cart/${id}`);
-  // }
+  incQty(bookId: number): Observable<BookInCart> {
+    const headers = new HttpHeaders({
+      Authorization: 'Token ' + sessionStorage.getItem('token'),
+      'Content-Type': 'application/json',
+    });
+    return this.http.post<BookInCart>(
+      `http://localhost:3000/api/cart/incQty/${bookId}`,
+      {},
+      {
+        headers,
+      }
+    );
+  }
 }

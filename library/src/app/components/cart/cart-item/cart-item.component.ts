@@ -34,4 +34,13 @@ export class CartItemComponent implements OnInit {
       this.onDelete.emit(this.cartItem);
     });
   }
+
+  changeQty(sign) {
+    if (sign === '+') {
+      this.cartService.incQty(this.cartItem.bookId).subscribe(
+        (data) => console.log(data),
+        (err) => console.log(err)
+      );
+    }
+  }
 }

@@ -50,4 +50,10 @@ export class CartController {
   ) {
     return this.cartService.deletBookFromCart(owner, bookId);
   }
+
+  @Post('incQty/:bookId')
+  @UseGuards(AuthGuard())
+  incQty(@Param('bookId') bookId: number, @User() { username }: UserEntity) {
+    return this.cartService.incQty(bookId, username);
+  }
 }

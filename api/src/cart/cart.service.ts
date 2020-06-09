@@ -2,11 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CartEntity } from 'src/entities/cart.entity';
 import { Repository } from 'typeorm';
-import { BookDTO } from 'src/models/book.model';
 import { BookService } from 'src/books/book/book.service';
-import { BookEntity } from 'src/entities/book.entity';
-import { json } from 'express';
-import { rejects } from 'assert';
 
 @Injectable()
 export class CartService {
@@ -60,5 +56,11 @@ export class CartService {
       total += book.price * book['quantity'];
     }
     return total;
+  }
+
+  async incQty(bookId: number, owner: string) {
+    const book = await this.cartRepo.findOne({ bookId, owner });
+    book.quantity++;
+    return await this.cartRepo.save(book);
   }
 }
