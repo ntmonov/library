@@ -3,6 +3,7 @@ import { BookInCart } from 'src/app/models/Book';
 import { CartService } from 'src/app/services/cart.service';
 import { Cart } from 'src/app/models/Cart';
 import { AuthService } from 'src/app/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cart-item',
@@ -16,7 +17,8 @@ export class CartItemComponent implements OnInit {
   book: BookInCart;
   constructor(
     private cartService: CartService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -37,9 +39,15 @@ export class CartItemComponent implements OnInit {
 
   changeQty(sign) {
     if (sign === '+') {
-      this.cartService.incQty(this.cartItem.bookId).subscribe(
-        (data) => console.log(data),
-        (err) => console.log(err)
+      let total = +sessionStorage.getItem('total') || 0;
+      this.cartService.addToCart(this.book).subscribe(
+        (b) => {
+          total += b.price;
+          sessionStorage.setItem('total', total.toString());
+        },
+        (err) => {
+          this.toastr.error(err.error.message);
+        }
       );
     }
   }
