@@ -43,12 +43,32 @@ export class CartItemComponent implements OnInit {
       this.cartService.addToCart(this.book).subscribe(
         (b) => {
           total += b.price;
+          this.book.quantity++;
           sessionStorage.setItem('total', total.toString());
         },
         (err) => {
           this.toastr.error(err.error.message);
         }
       );
+    } else {
+      let total = +sessionStorage.getItem('total');
+      this.cartService.decQty(this.book.id).subscribe((cartItem) => {
+        this.cartService
+          .getBookFromCart(cartItem.bookId, cartItem.owner)
+          .subscribe((b) => {
+            total -= b.price;
+            this.book.quantity--;
+            sessionStorage.setItem('total', total.toString());
+            if (this.book.quantity <= 0) {
+              this.cartService
+                .deleteBookFromCart(cartItem.owner, cartItem.bookId)
+                .subscribe((data) => {
+                  sessionStorage.setItem('total', total.toString());
+                  this.onDelete.emit(this.cartItem);
+                });
+            }
+          });
+      });
     }
   }
 }

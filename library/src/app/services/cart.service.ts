@@ -65,13 +65,13 @@ export class CartService {
     });
   }
 
-  incQty(bookId: number): Observable<BookInCart> {
+  decQty(bookId: number): Observable<Cart> {
     const headers = new HttpHeaders({
       Authorization: 'Token ' + sessionStorage.getItem('token'),
       'Content-Type': 'application/json',
     });
-    return this.http.post<BookInCart>(
-      `http://localhost:3000/api/cart/incQty/${bookId}`,
+    return this.http.post<Cart>(
+      `http://localhost:3000/api/cart/decQty/${bookId}`,
       {},
       {
         headers,

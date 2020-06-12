@@ -58,9 +58,9 @@ export class CartService {
     return total;
   }
 
-  async incQty(bookId: number, owner: string) {
+  async decQty(bookId: number, owner: string) {
     const book = await this.cartRepo.findOne({ bookId, owner });
-    book.quantity++;
+    book.quantity--;
     return await this.cartRepo.save(book);
   }
 }
