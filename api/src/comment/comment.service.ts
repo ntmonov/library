@@ -11,7 +11,7 @@ export class CommentService {
   ) {}
 
   async getAllComments(bookId: number) {
-    const comments = await this.commentRepo.findOne(bookId);
+    const comments = await this.commentRepo.find({ bookId });
     return comments;
   }
 }

@@ -1,6 +1,7 @@
 import { AbstractEntity } from './abstract-entity';
 import { Entity, Column } from 'typeorm';
 import { IsString, IsNumber } from 'class-validator';
+import { classToPlain } from 'class-transformer';
 
 @Entity('comments')
 export class CommentEntity extends AbstractEntity {
@@ -15,4 +16,8 @@ export class CommentEntity extends AbstractEntity {
   @Column()
   @IsString()
   body: string;
+
+  toJSON() {
+    return classToPlain(this);
+  }
 }
