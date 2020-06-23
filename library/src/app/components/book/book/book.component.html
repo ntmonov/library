@@ -6,7 +6,7 @@
     Some quick example text to build on the card title and make up the bdivk of
     the card's content.
   </p>
-  <button (click)="addToCart()">Add to cart</button>
+  <button *ngIf="isAuth()" (click)="addToCart()">Add to cart</button>
   <div *ngIf="isAdmin()">
     <a class="btn btn-warning mr-1" routerLink="/editBook/{{ book.id }}"
       >Update</a

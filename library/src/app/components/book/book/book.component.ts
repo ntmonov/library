@@ -22,6 +22,10 @@ export class BookComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  isAuth(): boolean {
+    return this.authService.isAuthenticated();
+  }
+
   deleteBook(book: Book) {
     this.bookService.deleteBook(book).subscribe(
       (data) => {

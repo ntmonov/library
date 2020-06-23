@@ -7,14 +7,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EditBookComponent } from './edit-book/edit-book.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { BookComponent } from './book/book.component';
+import { BookRoutingModule } from './book-routing.module';
 
 @NgModule({
-  declarations: [BooksComponent, AddBookComponent, EditBookComponent, BookComponent],
+  declarations: [
+    BooksComponent,
+    AddBookComponent,
+    EditBookComponent,
+    BookComponent,
+  ],
   imports: [
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AppRoutingModule,
+    BookRoutingModule,
   ],
 })
 export class BookModule {}
