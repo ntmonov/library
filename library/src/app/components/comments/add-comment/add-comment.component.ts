@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { CommentService } from 'src/app/services/comment.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-add-comment',
@@ -6,11 +8,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-comment.component.css'],
 })
 export class AddCommentComponent implements OnInit {
-  constructor() {}
+  @Input() bookId: number;
+  constructor(
+    private commentService: CommentService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {}
 
   addComment(body: string) {
-    console.log(body);
+    const comment = {
+      bookId: this.bookId,
+      body,
+      author: this.authService.getUsername(),
+    };
+    this.commentService.addComment(comment).subscribe(
+      (data) => console.log(data),
+      (err) => console.log(err)
+    );
   }
 }

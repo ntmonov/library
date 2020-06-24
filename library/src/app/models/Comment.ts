@@ -3,4 +3,5 @@ export class Comment {
   bookId: number;
   author: string;
   body: string;
+  created: Date;
 }

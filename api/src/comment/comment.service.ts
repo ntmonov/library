@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CommentEntity } from 'src/entities/comment.entity';
 import { Repository } from 'typeorm';
+import { CommentDTO } from 'src/models/comment.model';
 
 @Injectable()
 export class CommentService {
@@ -13,5 +14,10 @@ export class CommentService {
   async getAllComments(bookId: number) {
     const comments = await this.commentRepo.find({ bookId });
     return comments;
+  }
+
+  async addComment(comment: CommentDTO) {
+    const c = await this.commentRepo.insert(comment);
+    return c;
   }
 }
