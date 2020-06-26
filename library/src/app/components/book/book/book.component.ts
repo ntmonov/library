@@ -4,6 +4,7 @@ import { BookService } from 'src/app/services/book.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
+import { Comment } from 'src/app/models/Comment';
 
 @Component({
   selector: 'app-book',
@@ -13,6 +14,8 @@ import { CartService } from 'src/app/services/cart.service';
 export class BookComponent implements OnInit {
   @Input() book: Book;
   @Output() deleted = new EventEmitter<Book>();
+  comment: Comment;
+
   constructor(
     private bookService: BookService,
     private toastr: ToastrService,
@@ -53,5 +56,8 @@ export class BookComponent implements OnInit {
         this.toastr.error(err.error.message);
       }
     );
+  }
+  onInsert(c) {
+    this.comment = c;
   }
 }

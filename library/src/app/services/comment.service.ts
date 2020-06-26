@@ -15,13 +15,17 @@ export class CommentService {
     );
   }
 
-  addComment(comment) {
+  addComment(comment): Observable<Comment> {
     const headers = new HttpHeaders({
       Authorization: 'Token ' + sessionStorage.getItem('token'),
       'Content-Type': 'application/json',
     });
-    return this.http.post('http://localhost:3000/api/comment', comment, {
-      headers,
-    });
+    return this.http.post<Comment>(
+      'http://localhost:3000/api/comment',
+      comment,
+      {
+        headers,
+      }
+    );
   }
 }

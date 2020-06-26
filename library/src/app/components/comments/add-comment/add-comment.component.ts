@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommentService } from 'src/app/services/comment.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { Comment } from '../../../models/Comment';
 
 @Component({
   selector: 'app-add-comment',
@@ -9,6 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AddCommentComponent implements OnInit {
   @Input() bookId: number;
+  @Output() insertComment = new EventEmitter<Comment>();
+
   constructor(
     private commentService: CommentService,
     private authService: AuthService
@@ -22,9 +25,8 @@ export class AddCommentComponent implements OnInit {
       body,
       author: this.authService.getUsername(),
     };
-    this.commentService.addComment(comment).subscribe(
-      (data) => console.log(data),
-      (err) => console.log(err)
-    );
+    this.commentService.addComment(comment).subscribe((data) => {
+      this.insertComment.emit(data);
+    });
   }
 }

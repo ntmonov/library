@@ -1,5 +1,7 @@
-<h3>User Comments</h3>
+<div *ngIf="comments">
+  <h3>User Comments</h3>
 
-<div *ngFor="let comment of comments">
-  <app-comment-item [comment]="comment"></app-comment-item>
+  <div *ngFor="let comment of comments">
+    <app-comment-item [comment]="comment"></app-comment-item>
+  </div>
 </div>

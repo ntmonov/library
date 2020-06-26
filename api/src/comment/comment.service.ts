@@ -17,7 +17,7 @@ export class CommentService {
   }
 
   async addComment(comment: CommentDTO) {
-    const c = await this.commentRepo.insert(comment);
+    const c = await this.commentRepo.save(comment);
     return c;
   }
 }
