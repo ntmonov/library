@@ -2,6 +2,9 @@
   <h3>User Comments</h3>
 
   <div *ngFor="let comment of comments">
-    <app-comment-item [comment]="comment"></app-comment-item>
+    <app-comment-item
+      [comment]="comment"
+      (delComment)="deleteComment($event)"
+    ></app-comment-item>
   </div>
 </div>

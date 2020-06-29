@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { Comment } from 'src/app/models/Comment';
+import { CommentService } from 'src/app/services/comment.service';
 
 @Component({
   selector: 'app-book',
@@ -20,7 +21,8 @@ export class BookComponent implements OnInit {
     private bookService: BookService,
     private toastr: ToastrService,
     private authService: AuthService,
-    private cartService: CartService
+    private cartService: CartService,
+    private commentService: CommentService
   ) {}
 
   ngOnInit(): void {}
@@ -32,6 +34,9 @@ export class BookComponent implements OnInit {
   deleteBook(book: Book) {
     this.bookService.deleteBook(book).subscribe(
       (data) => {
+        this.commentService
+          .delCommentsByBookId(book.id)
+          .subscribe((data) => {});
         this.toastr.success('Book deleted');
         this.deleted.emit(book);
       },

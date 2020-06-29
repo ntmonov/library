@@ -20,4 +20,12 @@ export class CommentService {
     const c = await this.commentRepo.save(comment);
     return c;
   }
+
+  async delComment(id: number) {
+    await this.commentRepo.delete({ id });
+  }
+
+  async delCommentsByBookId(bookId: number) {
+    await this.commentRepo.delete({ bookId });
+  }
 }

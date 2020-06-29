@@ -6,6 +6,7 @@ import {
   Body,
   ValidationPipe,
   UseGuards,
+  Delete,
 } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CommentDTO } from 'src/models/comment.model';
@@ -24,5 +25,17 @@ export class CommentController {
   @UseGuards(AuthGuard('jwt'))
   addComment(@Body(ValidationPipe) comment: CommentDTO) {
     return this.commentService.addComment(comment);
+  }
+
+  @Delete(':id')
+  @UseGuards(AuthGuard('jwt'))
+  delComment(@Param('id') id: number) {
+    return this.commentService.delComment(id);
+  }
+
+  @Delete('all/:bookId')
+  @UseGuards(AuthGuard('jwt'))
+  delComments(@Param('bookId') bookId: number) {
+    return this.commentService.delCommentsByBookId(bookId);
   }
 }

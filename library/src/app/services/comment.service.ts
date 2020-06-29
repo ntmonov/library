@@ -28,4 +28,24 @@ export class CommentService {
       }
     );
   }
+
+  delComment(commentId: number) {
+    const headers = new HttpHeaders({
+      Authorization: 'Token ' + sessionStorage.getItem('token'),
+      'Content-Type': 'application/json',
+    });
+    return this.http.delete(`http://localhost:3000/api/comment/${commentId}`, {
+      headers,
+    });
+  }
+
+  delCommentsByBookId(bookId: number) {
+    const headers = new HttpHeaders({
+      Authorization: 'Token ' + sessionStorage.getItem('token'),
+      'Content-Type': 'application/json',
+    });
+    return this.http.delete(`http://localhost:3000/api/comment/all/${bookId}`, {
+      headers,
+    });
+  }
 }

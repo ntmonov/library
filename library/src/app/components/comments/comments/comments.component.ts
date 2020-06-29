@@ -32,4 +32,8 @@ export class CommentsComponent implements OnInit, OnChanges {
       this.comments = c;
     });
   }
+
+  deleteComment(id: number) {
+    this.comments = this.comments.filter((c) => c.id !== id);
+  }
 }
