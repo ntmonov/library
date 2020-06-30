@@ -16,6 +16,7 @@
     </button>
   </div>
   <app-add-comment
+    *ngIf="isAuth()"
     (insertComment)="onInsert($event)"
     [bookId]="book.id"
   ></app-add-comment>

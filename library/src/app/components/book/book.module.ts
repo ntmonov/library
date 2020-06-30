@@ -8,6 +8,7 @@ import { EditBookComponent } from './edit-book/edit-book.component';
 import { BookComponent } from './book/book.component';
 import { BookRoutingModule } from './book-routing.module';
 import { CommentsModule } from '../comments/comments.module';
+import { SearchBookComponent } from './search-book/search-book.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { CommentsModule } from '../comments/comments.module';
     AddBookComponent,
     EditBookComponent,
     BookComponent,
+    SearchBookComponent,
   ],
   imports: [
     CommonModule,
