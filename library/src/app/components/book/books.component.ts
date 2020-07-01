@@ -23,7 +23,14 @@ export class BooksComponent implements OnInit {
   }
 
   search(sch) {
+    if (sch === '') {
+      this.bookService.getAllBooks().subscribe((data) => {
+        this.books = data;
+        return;
+      });
+    }
     const rgx = new RegExp(`.*${sch}.*`, 'i');
+
     this.books = this.books.filter(
       (b) => rgx.test(b.title) || rgx.test(b.author)
     );

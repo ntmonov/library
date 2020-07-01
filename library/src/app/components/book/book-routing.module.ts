@@ -4,14 +4,15 @@ import { BooksComponent } from './books.component';
 import { AddBookComponent } from './add-book/add-book.component';
 import { AuthGuard } from 'src/app/guard/auth.guard';
 import { EditBookComponent } from './edit-book/edit-book.component';
+import { AdminGuard } from 'src/app/guard/admin.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: BooksComponent },
-  { path: 'addBook', component: AddBookComponent, canActivate: [AuthGuard] },
+  { path: 'addBook', component: AddBookComponent, canActivate: [AdminGuard] },
   {
     path: 'editBook/:bookId',
     component: EditBookComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AdminGuard],
   },
 ];
 

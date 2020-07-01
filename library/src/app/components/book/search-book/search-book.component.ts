@@ -12,9 +12,6 @@ export class SearchBookComponent implements OnInit {
   ngOnInit(): void {}
 
   search(sch) {
-    if (sch === '') {
-      return;
-    }
     this.searchBook.emit(sch);
   }
 }
