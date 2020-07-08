@@ -56,12 +56,9 @@ export class EditBookComponent implements OnInit {
 
   editBook() {
     this.editBookForm.value['id'] = this.bookId;
-    this.bookService.updateBook(this.editBookForm.value).subscribe(
-      (data) => {
-        this.toastr.success('Book updated');
-        this.router.navigateByUrl('books');
-      },
-      (err) => this.toastr.error(err.error.message)
-    );
+    this.bookService.updateBook(this.editBookForm.value).subscribe((data) => {
+      this.toastr.success('Book updated');
+      this.router.navigateByUrl('books');
+    });
   }
 }

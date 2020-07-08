@@ -41,16 +41,11 @@ export class CartItemComponent implements OnInit {
   changeQty(sign) {
     if (sign === '+') {
       let total = +sessionStorage.getItem('total') || 0;
-      this.cartService.addToCart(this.book).subscribe(
-        (b) => {
-          total += b.price;
-          this.book.quantity++;
-          sessionStorage.setItem('total', total.toString());
-        },
-        (err) => {
-          this.toastr.error(err.error.message);
-        }
-      );
+      this.cartService.addToCart(this.book).subscribe((b) => {
+        total += b.price;
+        this.book.quantity++;
+        sessionStorage.setItem('total', total.toString());
+      });
     } else {
       let total = +sessionStorage.getItem('total');
       this.cartService.decQty(this.book.id).subscribe((cartItem) => {

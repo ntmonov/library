@@ -37,6 +37,13 @@ export class TokenInterceptor implements HttpInterceptor {
         'Content-Type': 'application/json',
       },
     });
-    return next.handle(req);
+    return next.handle(req).pipe(
+      tap(
+        () => {},
+        (err: any) => {
+          this.toastr.error(err.error.message);
+        }
+      )
+    );
   }
 }

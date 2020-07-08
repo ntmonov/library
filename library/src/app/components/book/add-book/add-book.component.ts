@@ -43,13 +43,8 @@ export class AddBookComponent implements OnInit, OnDestroy {
   addBook() {
     this.addBookObs$ = this.bookService
       .addBook(this.addBookForm.value)
-      .subscribe(
-        (data) => {
-          this.router.navigateByUrl('books');
-        },
-        (err) => {
-          this.toastr.error(err.error.message);
-        }
-      );
+      .subscribe((data) => {
+        this.router.navigateByUrl('books');
+      });
   }
 }
