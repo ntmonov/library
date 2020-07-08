@@ -41,18 +41,13 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService.login(this.loginForm.value).subscribe(
-      (user) => {
-        this.authService.saveSession(user);
-        this.cartService.getTotalPrice().subscribe((data) => {
-          sessionStorage.setItem('total', data.toString());
-        });
-        this.toastr.success('Login successfull');
-        this.router.navigateByUrl('/');
-      },
-      (err) => {
-        this.toastr.error(err.error.message);
-      }
-    );
+    this.authService.login(this.loginForm.value).subscribe((user) => {
+      this.authService.saveSession(user);
+      this.cartService.getTotalPrice().subscribe((data) => {
+        sessionStorage.setItem('total', data.toString());
+      });
+      this.toastr.success('Login successfull');
+      this.router.navigateByUrl('/');
+    });
   }
 }

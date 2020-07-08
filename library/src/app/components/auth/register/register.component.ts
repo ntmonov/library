@@ -62,16 +62,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
     delete this.registerForm['confirmPass'];
     this.registerObs$ = this.authService
       .register(this.registerForm.value)
-      .subscribe(
-        (user) => {
-          this.authService.saveSession(user);
-          sessionStorage.setItem('total', '0');
-          this.toastr.success('Register successfull');
-          this.router.navigateByUrl('/');
-        },
-        (err) => {
-          this.toastr.error(err.error.message);
-        }
-      );
+      .subscribe((user) => {
+        this.authService.saveSession(user);
+        sessionStorage.setItem('total', '0');
+        this.toastr.success('Register successfull');
+        this.router.navigateByUrl('/');
+      });
   }
 }
