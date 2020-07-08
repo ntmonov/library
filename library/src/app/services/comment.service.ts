@@ -16,36 +16,17 @@ export class CommentService {
   }
 
   addComment(comment): Observable<Comment> {
-    const headers = new HttpHeaders({
-      Authorization: 'Token ' + sessionStorage.getItem('token'),
-      'Content-Type': 'application/json',
-    });
     return this.http.post<Comment>(
       'http://localhost:3000/api/comment',
-      comment,
-      {
-        headers,
-      }
+      comment
     );
   }
 
   delComment(commentId: number) {
-    const headers = new HttpHeaders({
-      Authorization: 'Token ' + sessionStorage.getItem('token'),
-      'Content-Type': 'application/json',
-    });
-    return this.http.delete(`http://localhost:3000/api/comment/${commentId}`, {
-      headers,
-    });
+    return this.http.delete(`http://localhost:3000/api/comment/${commentId}`);
   }
 
   delCommentsByBookId(bookId: number) {
-    const headers = new HttpHeaders({
-      Authorization: 'Token ' + sessionStorage.getItem('token'),
-      'Content-Type': 'application/json',
-    });
-    return this.http.delete(`http://localhost:3000/api/comment/all/${bookId}`, {
-      headers,
-    });
+    return this.http.delete(`http://localhost:3000/api/comment/all/${bookId}`);
   }
 }

@@ -18,34 +18,14 @@ export class BookService {
   }
 
   addBook(book: Book): Observable<Book> {
-    const headers = new HttpHeaders({
-      Authorization: 'Token ' + sessionStorage.getItem('token'),
-      'Content-Type': 'application/json',
-    });
-
-    return this.http.post<Book>('http://localhost:3000/api/books', book, {
-      headers,
-    });
+    return this.http.post<Book>('http://localhost:3000/api/books', book);
   }
 
   deleteBook(book: Book) {
-    const headers = new HttpHeaders({
-      Authorization: 'Token ' + sessionStorage.getItem('token'),
-      'Content-Type': 'application/json',
-    });
-
-    return this.http.delete(`http://localhost:3000/api/books/${book.id}`, {
-      headers,
-    });
+    return this.http.delete(`http://localhost:3000/api/books/${book.id}`);
   }
 
   updateBook(book: Book) {
-    const headers = new HttpHeaders({
-      Authorization: 'Token ' + sessionStorage.getItem('token'),
-      'Content-Type': 'application/json',
-    });
-    return this.http.put(`http://localhost:3000/api/books/${book.id}`, book, {
-      headers,
-    });
+    return this.http.put(`http://localhost:3000/api/books/${book.id}`, book);
   }
 }
