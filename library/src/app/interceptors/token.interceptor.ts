@@ -14,6 +14,9 @@ export class TokenInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    if (req.url.endsWith('users') || req.url.endsWith('users/login')) {
+      return next.handle(req);
+    }
     req = req.clone({
       setHeaders: {
         Authorization: 'Token ' + sessionStorage.getItem('token'),
