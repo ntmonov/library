@@ -16,7 +16,7 @@ export class CartService {
       'Content-Type': 'application/json',
     });
     return this.http.post<Book>(
-      `http://localhost:3000/api/cart/${book.id}`,
+      `http://localhost:3000/api/cart/add/${book.id}`,
       book,
       {
         headers,
@@ -51,7 +51,7 @@ export class CartService {
       'Content-Type': 'application/json',
     });
     return this.http.delete(
-      `http://localhost:3000/api/cart/${owner}/${bookId}`,
+      `http://localhost:3000/api/cart/del/${owner}/${bookId}`,
       { headers }
     );
   }
@@ -59,6 +59,7 @@ export class CartService {
   getTotalPrice(): Observable<number> {
     const headers = new HttpHeaders({
       Authorization: 'Token ' + sessionStorage.getItem('token'),
+      'Content-Type': 'text/plain',
     });
     return this.http.get<number>(`http://localhost:3000/api/cart/total`, {
       headers,

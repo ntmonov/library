@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { BookService } from 'src/app/services/book.service';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -45,11 +44,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe(
       (user) => {
         this.authService.saveSession(user);
-        this.cartService
-          .getTotalPrice()
-          .subscribe((data) =>
-            sessionStorage.setItem('total', data.toString())
-          );
+        this.cartService.getTotalPrice().subscribe((data) => {
+          sessionStorage.setItem('total', data.toString());
+        });
         this.toastr.success('Login successfull');
         this.router.navigateByUrl('/');
       },

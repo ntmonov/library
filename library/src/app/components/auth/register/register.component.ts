@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -9,13 +9,19 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   errorMessage: string = '';
+  registerObs$;
   constructor(
     private authService: AuthService,
     private router: Router,
     private toastr: ToastrService
   ) {}
+  ngOnDestroy(): void {
+    if (this.registerObs$) {
+      this.registerObs$.unsubscribe();
+    }
+  }
 
   ngOnInit(): void {}
 
@@ -54,16 +60,18 @@ export class RegisterComponent implements OnInit {
 
   register() {
     delete this.registerForm['confirmPass'];
-    this.authService.register(this.registerForm.value).subscribe(
-      (user) => {
-        this.authService.saveSession(user);
-        sessionStorage.setItem('total', '0');
-        this.toastr.success('Register successfull');
-        this.router.navigateByUrl('/');
-      },
-      (err) => {
-        this.toastr.error(err.error.message);
-      }
-    );
+    this.registerObs$ = this.authService
+      .register(this.registerForm.value)
+      .subscribe(
+        (user) => {
+          this.authService.saveSession(user);
+          sessionStorage.setItem('total', '0');
+          this.toastr.success('Register successfull');
+          this.router.navigateByUrl('/');
+        },
+        (err) => {
+          this.toastr.error(err.error.message);
+        }
+      );
   }
 }

@@ -30,10 +30,11 @@ export class CartItemComponent implements OnInit {
 
   deleteItem(item: BookInCart) {
     const owner = this.authService.getUsername();
-    this.cartService.deleteBookFromCart(owner, item.id).subscribe();
-    this.cartService.getTotalPrice().subscribe((total) => {
-      sessionStorage.setItem('total', total.toString());
-      this.onDelete.emit(this.cartItem);
+    this.cartService.deleteBookFromCart(owner, item.id).subscribe(() => {
+      this.cartService.getTotalPrice().subscribe((total) => {
+        sessionStorage.setItem('total', total.toString());
+        this.onDelete.emit(this.cartItem);
+      });
     });
   }
 

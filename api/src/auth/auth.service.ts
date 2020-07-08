@@ -34,7 +34,6 @@ export class AuthService {
   }
 
   async login({ email, password }: LoginDTO) {
-    console.log(email);
     try {
       const user = await this.userRepo.findOne({ where: { email } });
       const isValid = await user.comparePassword(password);

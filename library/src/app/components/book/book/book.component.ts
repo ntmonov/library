@@ -1,4 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnDestroy,
+} from '@angular/core';
 import { Book } from 'src/app/models/Book';
 import { BookService } from 'src/app/services/book.service';
 import { ToastrService } from 'ngx-toastr';
@@ -12,7 +19,9 @@ import { CommentService } from 'src/app/services/comment.service';
   templateUrl: './book.component.html',
   styleUrls: ['./book.component.css'],
 })
-export class BookComponent implements OnInit {
+export class BookComponent implements OnInit, OnDestroy {
+  deleteBookObs$;
+  addToCartObs$;
   @Input() book: Book;
   @Output() deleted = new EventEmitter<Book>();
   comment: Comment;
@@ -24,6 +33,14 @@ export class BookComponent implements OnInit {
     private cartService: CartService,
     private commentService: CommentService
   ) {}
+  ngOnDestroy(): void {
+    if (this.deleteBookObs$) {
+      this.deleteBookObs$.unsubscribe();
+    }
+    if (this.addToCartObs$) {
+      this.addToCartObs$.unsubscribe();
+    }
+  }
 
   ngOnInit(): void {}
 
@@ -32,7 +49,7 @@ export class BookComponent implements OnInit {
   }
 
   deleteBook(book: Book) {
-    this.bookService.deleteBook(book).subscribe(
+    this.deleteBookObs$ = this.bookService.deleteBook(book).subscribe(
       (data) => {
         this.commentService
           .delCommentsByBookId(book.id)
@@ -52,7 +69,7 @@ export class BookComponent implements OnInit {
 
   addToCart() {
     let total = +sessionStorage.getItem('total') || 0;
-    this.cartService.addToCart(this.book).subscribe(
+    this.addToCartObs$ = this.cartService.addToCart(this.book).subscribe(
       (b) => {
         total += b.price;
         sessionStorage.setItem('total', total.toString());

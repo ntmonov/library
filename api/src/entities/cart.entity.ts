@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 import { IsNumber, IsString } from 'class-validator';
 import { AbstractEntity } from './abstract-entity';
 

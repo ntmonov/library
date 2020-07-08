@@ -21,7 +21,7 @@ export class CartController {
     return this.cartService.getTotalCartPrice(username);
   }
 
-  @Post(':bookId')
+  @Post('/add/:bookId')
   @UseGuards(AuthGuard())
   addToCart(@Param('bookId') bookId: number, @User() { username }: UserEntity) {
     return this.cartService.addToCart(bookId, username);
@@ -42,7 +42,7 @@ export class CartController {
     return this.cartService.getCartItems(owner);
   }
 
-  @Delete(':owner/:bookId')
+  @Delete('del/:owner/:bookId')
   @UseGuards(AuthGuard())
   deleteBookFromCart(
     @Param('owner') owner: string,

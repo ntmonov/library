@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { BookService } from 'src/app/services/book.service';
 import { Router } from '@angular/router';
@@ -9,12 +9,18 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './add-book.component.html',
   styleUrls: ['./add-book.component.css'],
 })
-export class AddBookComponent implements OnInit {
+export class AddBookComponent implements OnInit, OnDestroy {
+  addBookObs$;
   constructor(
     private bookService: BookService,
     private router: Router,
     private toastr: ToastrService
   ) {}
+  ngOnDestroy(): void {
+    if (this.addBookObs$) {
+      this.addBookObs$.unsubscribe();
+    }
+  }
 
   ngOnInit(): void {}
 
@@ -35,13 +41,15 @@ export class AddBookComponent implements OnInit {
   }
 
   addBook() {
-    this.bookService.addBook(this.addBookForm.value).subscribe(
-      (data) => {
-        this.router.navigateByUrl('books');
-      },
-      (err) => {
-        this.toastr.error(err.error.message);
-      }
-    );
+    this.addBookObs$ = this.bookService
+      .addBook(this.addBookForm.value)
+      .subscribe(
+        (data) => {
+          this.router.navigateByUrl('books');
+        },
+        (err) => {
+          this.toastr.error(err.error.message);
+        }
+      );
   }
 }

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BooksComponent } from './books.component';
 import { AddBookComponent } from './add-book/add-book.component';
-import { AuthGuard } from 'src/app/guard/auth.guard';
 import { EditBookComponent } from './edit-book/edit-book.component';
 import { AdminGuard } from 'src/app/guard/admin.guard';
 
