@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { MainComponent } from './components/main/main/main.component';
 import { LoginComponent } from './components/auth/login/login.component';
-import { CartComponent } from './components/cart/cart.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: MainComponent },

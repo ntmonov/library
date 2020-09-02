@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CommentEntity } from 'src/entities/comment.entity';
 import { Repository } from 'typeorm';
@@ -17,6 +17,8 @@ export class CommentService {
   }
 
   async addComment(comment: CommentDTO) {
+    if (comment.body.length > 255)
+      throw new InternalServerErrorException('Max 255 chars');
     const c = await this.commentRepo.save(comment);
     return c;
   }
