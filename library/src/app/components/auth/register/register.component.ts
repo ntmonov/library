@@ -12,11 +12,14 @@ import { ToastrService } from 'ngx-toastr';
 export class RegisterComponent implements OnInit, OnDestroy {
   errorMessage: string = '';
   registerObs$;
+  verificationMessage: string;
   constructor(
     private authService: AuthService,
     private router: Router,
     private toastr: ToastrService
-  ) {}
+  ) {
+    this.verificationMessage = '';
+  }
   ngOnDestroy(): void {
     if (this.registerObs$) {
       this.registerObs$.unsubscribe();
@@ -62,11 +65,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     delete this.registerForm['confirmPass'];
     this.registerObs$ = this.authService
       .register(this.registerForm.value)
-      .subscribe((user) => {
-        this.authService.saveSession(user);
-        sessionStorage.setItem('total', '0');
-        this.toastr.success('Register successfull');
-        this.router.navigateByUrl('/');
+      .subscribe((userInfo) => {
+        this.verificationMessage = userInfo.message;
       });
   }
 }

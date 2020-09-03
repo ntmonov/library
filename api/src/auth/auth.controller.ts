@@ -1,4 +1,11 @@
-import { Controller, Post, Body, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  ValidationPipe,
+  Get,
+  Param,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegistrationDTO, LoginDTO } from 'src/models/user.model';
 
@@ -14,5 +21,10 @@ export class AuthController {
   @Post('/login')
   login(@Body(ValidationPipe) credentials: LoginDTO) {
     return this.authService.login(credentials);
+  }
+
+  @Get('/verify/:id/:code')
+  verify(@Param('id') id: number, @Param('code') code: string) {
+    return this.authService.verify(id, code);
   }
 }

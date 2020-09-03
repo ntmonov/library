@@ -1,8 +1,9 @@
 import { AbstractEntity } from './abstract-entity';
 import { Entity, Column, BeforeInsert } from 'typeorm';
 import { Exclude, classToPlain } from 'class-transformer';
-import { IsEmail, IsBoolean } from 'class-validator';
+import { IsEmail, IsBoolean, IsString } from 'class-validator';
 import * as bcrypt from 'bcryptjs';
+import { v4 } from 'uuid';
 
 @Entity('users')
 export class UserEntity extends AbstractEntity {
@@ -28,9 +29,24 @@ export class UserEntity extends AbstractEntity {
   @Exclude()
   isAdmin: boolean;
 
+  @Column({ default: false })
+  @IsBoolean()
+  @Exclude()
+  isActivated: boolean;
+
+  @Column()
+  @IsString()
+  @Exclude()
+  verificationCode: string;
+
   @BeforeInsert()
   async hashPassword() {
     this.password = await bcrypt.hash(this.password, 10);
+  }
+
+  @BeforeInsert()
+  async getVerificationCode() {
+    this.verificationCode = v4();
   }
 
   toJSON() {

@@ -17,12 +17,21 @@ export class AuthService {
     return sessionStorage.getItem('token') !== null;
   }
 
-  register(user: User): Observable<User> {
-    return this.http.post<User>('http://localhost:3000/api/users', user);
+  register(user: User): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      'http://localhost:3000/api/users',
+      user
+    );
   }
 
   login(user: User): Observable<User> {
     return this.http.post<User>('http://localhost:3000/api/users/login', user);
+  }
+
+  verify(id: number, code: string): Observable<{ message: string }> {
+    return this.http.get<{ message: string }>(
+      `http://localhost:3000/api/users/verify/${id}/${code}`
+    );
   }
 
   getIsAdmin(): boolean {
