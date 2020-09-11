@@ -51,7 +51,7 @@ export class AuthService {
 
   async verify(id: number, code: string) {
     const user = await this.userRepo.findOne({ id });
-    if (user.verificationCode !== code) {
+    if (!user || (user && user.verificationCode !== code)) {
       throw new UnauthorizedException('Can not activate');
     }
     user.isActivated = true;
